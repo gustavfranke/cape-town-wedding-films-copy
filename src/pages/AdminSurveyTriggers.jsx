@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Save } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 const DEFAULT_TRIGGERS = {
   cta_enabled: true,
@@ -20,6 +21,7 @@ const DEFAULT_TRIGGERS = {
 
 export default function AdminSurveyTriggers() {
   const qc = useQueryClient();
+  const { toast } = useToast();
 
   const { data: config } = useQuery({
     queryKey: ["survey-config-triggers"],
@@ -38,7 +40,11 @@ export default function AdminSurveyTriggers() {
 
   const updateMut = useMutation({
     mutationFn: (triggers) => base44.entities.SurveyConfig.update(config.id, { triggers }),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["survey-config-triggers"] }),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["survey-config-triggers"] });
+      toast({ title: "Saved", description: "Trigger settings updated." });
+    },
+    onError: () => toast({ title: "Error", description: "Failed to save.", variant: "destructive" }),
   });
 
   const triggers = config?.triggers || DEFAULT_TRIGGERS;

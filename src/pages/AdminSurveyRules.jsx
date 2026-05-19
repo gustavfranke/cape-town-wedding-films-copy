@@ -92,7 +92,7 @@ export default function AdminSurveyRules() {
     <AdminLayout currentPage="AdminSurvey">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-light text-white">Survey Rules & Tags</h1>
+          <h1 className="text-2xl font-light text-white">Survey Rules &amp; Tags</h1>
           <p className="text-white/40 text-sm mt-1">Auto-tag leads based on their survey answers</p>
         </div>
         <Button onClick={handleAddRule} className="bg-amber-600 hover:bg-amber-700 text-white rounded-xl">
@@ -101,6 +101,11 @@ export default function AdminSurveyRules() {
       </div>
 
       <div className="space-y-4">
+        {rules.length === 0 && (
+          <div className="text-center py-12 text-white/30">
+            <p>No rules yet — click "Add Rule" to get started</p>
+          </div>
+        )}
         {rules.map(rule => (
           <Card key={rule.id} className="bg-white/[0.03] border-white/[0.06]">
             <CardHeader className="flex flex-row items-center justify-between">

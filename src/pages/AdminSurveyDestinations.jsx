@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Save } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 const DEFAULT_DESTINATIONS = {
   confirmation_headline: "Your Vendor Vault Access Is Confirmed",
@@ -23,6 +24,7 @@ const DEFAULT_DESTINATIONS = {
 export default function AdminSurveyDestinations() {
   const [form, setForm] = useState(DEFAULT_DESTINATIONS);
   const qc = useQueryClient();
+  const { toast } = useToast();
 
   const { data: config } = useQuery({
     queryKey: ["survey-config-destinations"],
@@ -47,7 +49,11 @@ export default function AdminSurveyDestinations() {
 
   const updateMut = useMutation({
     mutationFn: (destinations) => base44.entities.SurveyConfig.update(config.id, { destinations }),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["survey-config-destinations"] }),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["survey-config-destinations"] });
+      toast({ title: "Saved", description: "Destination settings saved successfully." });
+    },
+    onError: () => toast({ title: "Error", description: "Failed to save.", variant: "destructive" }),
   });
 
   const handleSave = () => {

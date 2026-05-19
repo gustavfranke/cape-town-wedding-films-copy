@@ -9,7 +9,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Search, Download, Copy, MessageSquare, X, Phone, Mail, Calendar } from "lucide-react";
+import { Search, Download, Copy, MessageSquare, Phone, Mail, Calendar } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 import { format } from "date-fns";
 
 const STATUS_OPTIONS = ["new", "contacted", "qualified", "booked", "not_a_fit"];
@@ -24,8 +25,10 @@ const statusColors = {
 export default function AdminLeads() {
   const [search, setSearch] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
+  const [filterDateRange, setFilterDateRange] = useState("all");
   const [selected, setSelected] = useState(null);
   const qc = useQueryClient();
+  const { toast } = useToast();
 
   const { data: leads } = useQuery({
     queryKey: ["admin-leads"],
@@ -35,13 +38,23 @@ export default function AdminLeads() {
 
   const updateMut = useMutation({
     mutationFn: ({ id, data }) => base44.entities.Lead.update(id, data),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["admin-leads"] }),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["admin-leads"] });
+      toast({ title: "Lead updated" });
+    },
   });
 
   const filtered = leads.filter(l => {
     const matchSearch = !search || l.name?.toLowerCase().includes(search.toLowerCase()) || l.email?.toLowerCase().includes(search.toLowerCase());
     const matchStatus = filterStatus === "all" || l.status === filterStatus;
-    return matchSearch && matchStatus;
+    let matchDate = true;
+    if (filterDateRange !== "all" && l.created_date) {
+      const created = new Date(l.created_date);
+      const now = new Date();
+      const days = parseInt(filterDateRange);
+      matchDate = (now - created) / (1000 * 60 * 60 * 24) <= days;
+    }
+    return matchSearch && matchStatus && matchDate;
   });
 
   const handleExportCSV = () => {
@@ -88,6 +101,17 @@ export default function AdminLeads() {
           <SelectContent>
             <SelectItem value="all">All Status</SelectItem>
             {STATUS_OPTIONS.map(s => <SelectItem key={s} value={s}>{s.replace(/_/g, " ")}</SelectItem>)}
+          </SelectContent>
+        </Select>
+        <Select value={filterDateRange} onValueChange={setFilterDateRange}>
+          <SelectTrigger className="w-44 bg-white/5 border-white/10 text-white rounded-xl">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Time</SelectItem>
+            <SelectItem value="7">Last 7 days</SelectItem>
+            <SelectItem value="30">Last 30 days</SelectItem>
+            <SelectItem value="90">Last 90 days</SelectItem>
           </SelectContent>
         </Select>
       </div>

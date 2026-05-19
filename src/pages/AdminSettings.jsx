@@ -9,11 +9,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Save, Loader2 } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function AdminSettings() {
   const [form, setForm] = useState({});
   const [saving, setSaving] = useState(false);
   const qc = useQueryClient();
+  const { toast } = useToast();
 
   const { data: settingsArr } = useQuery({
     queryKey: ["admin-settings"],
@@ -28,14 +30,25 @@ export default function AdminSettings() {
   }, [settings]);
 
   const updateMut = useMutation({
-    mutationFn: ({ id, data }) => base44.entities.SiteSettings.update(id, data),
-    onSuccess: () => { qc.invalidateQueries({ queryKey: ["admin-settings"] }); setSaving(false); },
+    mutationFn: async ({ id, data }) => {
+      if (id) {
+        return base44.entities.SiteSettings.update(id, data);
+      } else {
+        return base44.entities.SiteSettings.create(data);
+      }
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["admin-settings"] });
+      setSaving(false);
+      toast({ title: "Settings saved", description: "Your changes have been saved successfully." });
+    },
+    onError: () => { setSaving(false); toast({ title: "Error", description: "Failed to save settings.", variant: "destructive" }); },
   });
 
   const handleSave = () => {
     setSaving(true);
     const { id, created_date, updated_date, created_by, ...rest } = form;
-    updateMut.mutate({ id: settings.id, data: rest });
+    updateMut.mutate({ id: settings?.id || null, data: rest });
   };
 
   const fields = [
