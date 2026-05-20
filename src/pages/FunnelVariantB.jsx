@@ -17,265 +17,131 @@ import VaultPreviewGrid from "@/components/funnel/VaultPreviewGrid";
 import AuthoritySection from "@/components/funnel/AuthoritySection";
 import FAQSection from "@/components/funnel/FAQSection";
 import FinalCTASection from "@/components/funnel/FinalCTASection";
-import LeadForm from "@/components/funnel/LeadForm";
 import StickyMobileCTA from "@/components/funnel/StickyMobileCTA";
 import EditableSection from "@/components/funnel/EditableSection";
 import SectionEditModal from "@/components/funnel/SectionEditModal";
-import SurveyModal from "@/components/survey/SurveyModal";
-import SurveyTrigger from "@/components/survey/SurveyTrigger";
+import SurveyFlowModal from "@/components/survey/SurveyFlowModal";
 
 const DEFAULT_VARIANT_B = {
   id: null,
-  slug: "variant-b",
-  name: "Variant B",
+  slug: "offer-2",
+  name: "Offer 2",
   is_active: true,
-  hero_headline: "Your Cape Town Wedding Film, Crafted Like Cinema",
-  hero_subheadline: "Award-winning wedding films for couples who want to feel every moment, forever.",
-  hero_description: "We create cinematic wedding films that capture the real emotion of your day — not just the highlights, but the feeling.",
-  hero_cta_text: "Request Availability",
-  hero_supporting_line: "Limited dates available for 2025",
-  problem_headline: "Most wedding videos feel like slideshows. Yours won't.",
-  problem_description: "Generic videography misses the moments that matter most. We specialize in cinematic storytelling.",
-  solution_headline: "Cinematic Films That Feel Like Your Love Story",
-  solution_description: "Every film is hand-crafted with a cinematic eye — from the vows to the first dance, every second matters.",
-  vault_headline: "Your Free Luxury Vendor Vault",
-  vault_description: "Get our curated list of Cape Town's finest wedding vendors.",
-  offer_headline: "What's Included",
-  offer_items: [],
-  authority_headline: "About the Filmmaker",
-  authority_description: "With over 200 weddings filmed across Cape Town and the Winelands, we bring a director's eye to every celebration.",
-  final_cta_headline: "Ready to Capture Your Day?",
-  final_cta_description: "Spots fill fast. Check your date is available before it's gone.",
-  process_steps: [],
+  lead_capture_type: "contact_form",
+  hero_headline: "Timeless Films for Cape Town's Most Romantic Weddings",
+  hero_subheadline: "We tell your love story with the depth and beauty it deserves.",
+  hero_description: "Every couple deserves a film that makes them feel everything again.",
+  hero_cta_text: "Check Availability",
+  hero_supporting_line: "Only a handful of dates remain for 2025",
+  problem_headline: "Your wedding day will be over in hours. Your film lasts forever.",
+  problem_description: "Don't leave your memories to chance.",
+  solution_headline: "Films That Honour the Emotion of Your Day",
+  solution_description: "From the quiet moments before the ceremony to the last dance.",
+  vault_headline: "Exclusive Luxury Vendor Vault",
+  vault_description: "Unlock our hand-picked list of Cape Town's top wedding vendors.",
+  offer_headline: "Everything You Get",
+  authority_headline: "Meet Your Filmmaker",
+  authority_description: "200+ weddings across the Cape Winelands and beyond.",
+  final_cta_headline: "Don't Let Your Date Slip Away",
+  final_cta_description: "We only take a limited number of weddings each year.",
 };
 
 export default function FunnelVariantB() {
-  const [formOpen, setFormOpen] = useState(false);
-  const [surveyOpen, setSurveyOpen] = useState(false);
-  const [ctaTriggerActive, setCtaTriggerActive] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const [editModal, setEditModal] = useState({ open: false, section: null });
 
+  const slugParam = new URLSearchParams(window.location.search).get("v") || "offer-2";
+
   const { data: variants } = useQuery({
-    queryKey: ["pageVariants"],
-    queryFn: () => base44.entities.PageVariant.list(),
+    queryKey: ["pageVariants", slugParam],
+    queryFn: () => base44.entities.PageVariant.filter({ slug: slugParam }),
     initialData: [],
   });
 
-  const { data: testimonials } = useQuery({
-    queryKey: ["testimonials"],
-    queryFn: () => base44.entities.Testimonial.list(),
-    initialData: [],
-  });
+  const { data: testimonials } = useQuery({ queryKey: ["testimonials"], queryFn: () => base44.entities.Testimonial.list(), initialData: [] });
+  const { data: faqs } = useQuery({ queryKey: ["faqs"], queryFn: () => base44.entities.FAQ.list("sort_order"), initialData: [] });
+  const { data: categories } = useQuery({ queryKey: ["vendorCategories"], queryFn: () => base44.entities.VendorCategory.list(), initialData: [] });
+  const { data: settingsArr } = useQuery({ queryKey: ["siteSettings"], queryFn: () => base44.entities.SiteSettings.list(), initialData: [] });
 
-  const { data: faqs } = useQuery({
-    queryKey: ["faqs"],
-    queryFn: () => base44.entities.FAQ.list("sort_order"),
-    initialData: [],
-  });
-
-  const { data: categories } = useQuery({
-    queryKey: ["vendorCategories"],
-    queryFn: () => base44.entities.VendorCategory.list(),
-    initialData: [],
-  });
-
-  const { data: settingsArr } = useQuery({
-    queryKey: ["siteSettings"],
-    queryFn: () => base44.entities.SiteSettings.list(),
-    initialData: [],
-  });
-
-  const { data: surveyQuestionsConfig } = useQuery({
-    queryKey: ["survey-config-questions"],
-    queryFn: async () => {
-      const configs = await base44.entities.SurveyConfig.filter({ config_key: "questions" });
-      return configs[0] || null;
-    },
-  });
-
-  const { data: surveyTriggersConfig } = useQuery({
-    queryKey: ["survey-config-triggers"],
-    queryFn: async () => {
-      const configs = await base44.entities.SurveyConfig.filter({ config_key: "triggers" });
-      return configs[0] || null;
-    },
-  });
-
-  const { data: surveyDestinationsConfig } = useQuery({
-    queryKey: ["survey-config-destinations"],
-    queryFn: async () => {
-      const configs = await base44.entities.SurveyConfig.filter({ config_key: "destinations" });
-      return configs[0] || null;
-    },
-  });
-
-  const { data: surveyRulesConfig } = useQuery({
-    queryKey: ["survey-config-rules"],
-    queryFn: async () => {
-      const configs = await base44.entities.SurveyConfig.filter({ config_key: "rules" });
-      return configs[0] || null;
-    },
-  });
-
-  const variant = variants.find(v => v.slug === "offer-2" || v.slug === "variant-b") || variants[1] || DEFAULT_VARIANT_B;
+  const variant = variants[0] || DEFAULT_VARIANT_B;
   const settings = settingsArr?.[0];
 
+  const { data: survey } = useQuery({
+    queryKey: ["activeSurvey", variant.survey_id],
+    queryFn: () => base44.entities.Survey.get(variant.survey_id),
+    enabled: !!(variant.lead_capture_type === "survey" && variant.survey_id),
+  });
+
+  const cfId = variant.contact_form_id || survey?.contact_form_id;
+  const { data: contactFormArr } = useQuery({
+    queryKey: ["activeContactForm", cfId || "default"],
+    queryFn: () => cfId
+      ? base44.entities.ContactForm.filter({ id: cfId })
+      : base44.entities.ContactForm.filter({ is_default: true }),
+    initialData: [],
+  });
+  const contactForm = contactFormArr?.[0] || null;
+
   const trackEvent = useCallback((type) => {
-    if (!variant) return;
     base44.entities.AnalyticsEvent.create({
       event_type: type,
-      variant: variant?.slug || "offer-2",
+      variant: variant?.slug || slugParam,
       device_type: window.innerWidth < 768 ? "mobile" : window.innerWidth < 1024 ? "tablet" : "desktop",
     }).catch(() => {});
-  }, [variant]);
+  }, [variant?.slug, slugParam]);
 
   const handleCtaClick = useCallback(() => {
+    if (variant.lead_capture_type === "none") return;
     trackEvent("cta_click");
-    setCtaTriggerActive(true);
-  }, [trackEvent]);
+    setModalOpen(true);
+  }, [variant.lead_capture_type, trackEvent]);
 
-  const handleFormSubmit = async (data) => {
-    trackEvent("form_submit");
-    await base44.entities.Lead.create({ ...data, status: "new" });
-    setFormOpen(false);
-    window.location.href = "/ThankYou?variant=variant-b";
-  };
+  useEffect(() => { trackEvent("page_view"); }, []);
 
-  const applyRules = (answers) => {
-    const rules = surveyRulesConfig?.rules || [];
-    const tags = [];
-    
-    rules.forEach(rule => {
-      const allConditionsMet = rule.conditions.every(cond => {
-        const answerValue = answers[cond.field];
-        if (cond.operator === "equals") {
-          return answerValue === cond.value;
-        }
-        if (cond.operator === "contains") {
-          return Array.isArray(answerValue) && answerValue.includes(cond.value);
-        }
-        return false;
-      });
-      
-      if (allConditionsMet) {
-        rule.actions.forEach(action => {
-          if (action.type === "add_tag") tags.push(action.value);
-        });
-      }
-    });
-    
-    return tags;
-  };
-
-  const handleSurveyComplete = async (answers) => {
-    trackEvent("survey_completed");
-    
-    const tags = applyRules(answers);
-    
-    const lead = await base44.entities.Lead.create({
-      name: answers.full_name,
-      email: answers.email,
-      phone: answers.whatsapp_number,
-      wedding_date: answers.wedding_date,
-      guest_count: answers.guest_count,
-      funnel_variant: "variant-b",
-      status: "new",
-      tags,
-      survey_completed: true
-    });
-    
-    await base44.entities.SurveyResponse.create({
-      lead_id: lead.id,
-      page_variant_id: variant?.id,
-      answers,
-      tags,
-      completed: true
-    });
-  };
-
-  useEffect(() => {
-    trackEvent("page_view");
-  }, []);
-
-
+  const showModal = variant.lead_capture_type !== "none" && (survey || contactForm);
+  const activeSurvey = variant.lead_capture_type === "survey" ? survey : null;
 
   return (
     <div className="bg-stone-950 min-h-screen">
       <EditableSection sectionId="hero" onEdit={() => setEditModal({ open: true, section: "hero" })}>
         <HeroSection variant={variant} onCtaClick={handleCtaClick} />
       </EditableSection>
-      
       <CredibilityStrip />
-      
       <EditableSection sectionId="problem" onEdit={() => setEditModal({ open: true, section: "problem" })}>
         <ProblemSection variant={variant} />
       </EditableSection>
-      
       <EditableSection sectionId="solution" onEdit={() => setEditModal({ open: true, section: "solution" })}>
         <SolutionSection variant={variant} />
       </EditableSection>
-      
       <EditableSection sectionId="vault" onEdit={() => setEditModal({ open: true, section: "vault" })}>
         <VaultRevealSection variant={variant} onCtaClick={handleCtaClick} />
       </EditableSection>
-      
       <BenefitCards />
-      
       <EditableSection sectionId="offer" onEdit={() => setEditModal({ open: true, section: "offer" })}>
         <OfferSection variant={variant} />
       </EditableSection>
-      
       <SocialProofSection testimonials={testimonials} />
       <ObjectionSection />
       <ProcessTimeline variant={variant} />
       <VaultPreviewGrid categories={categories} onCtaClick={handleCtaClick} />
-      
       <EditableSection sectionId="authority" onEdit={() => setEditModal({ open: true, section: "authority" })}>
         <AuthoritySection variant={variant} />
       </EditableSection>
-      
       <FAQSection faqs={faqs} />
-      
       <EditableSection sectionId="final_cta" onEdit={() => setEditModal({ open: true, section: "final_cta" })}>
         <FinalCTASection variant={variant} onCtaClick={handleCtaClick} />
       </EditableSection>
-      
       <StickyMobileCTA variant={variant} onCtaClick={handleCtaClick} />
 
-      <SurveyTrigger
-        triggers={surveyTriggersConfig?.triggers || {}}
-        onTrigger={() => setSurveyOpen(true)}
-        isOpen={surveyOpen}
-        ctaTriggerActive={ctaTriggerActive}
-      />
-
       <AnimatePresence>
-        {surveyOpen && (
-          <SurveyModal
-            isOpen={surveyOpen}
-            onClose={() => {
-              setSurveyOpen(false);
-              setCtaTriggerActive(false);
-            }}
-            questions={surveyQuestionsConfig?.questions || []}
-            config={{
-              destinations: surveyDestinationsConfig?.destinations || {},
-              remember_progress: true
-            }}
-            onComplete={handleSurveyComplete}
+        {modalOpen && showModal && (
+          <SurveyFlowModal
+            isOpen={modalOpen}
+            onClose={() => setModalOpen(false)}
+            survey={activeSurvey}
+            contactForm={contactForm}
             variantId={variant?.id}
-          />
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {formOpen && (
-          <LeadForm
-            isOpen={formOpen}
-            variant={variant}
-            settings={settings}
-            onSubmit={handleFormSubmit}
-            onClose={() => setFormOpen(false)}
+            variantSlug={variant?.slug || slugParam}
           />
         )}
       </AnimatePresence>

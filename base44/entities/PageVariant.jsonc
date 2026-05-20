@@ -1,0 +1,127 @@
+{
+  "name": "PageVariant",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    },
+    "traffic_percent": {
+      "type": "number",
+      "default": 50
+    },
+    "lead_capture_type": {
+      "type": "string",
+      "enum": [
+        "survey",
+        "contact_form",
+        "none"
+      ],
+      "default": "contact_form"
+    },
+    "survey_id": {
+      "type": "string"
+    },
+    "contact_form_id": {
+      "type": "string"
+    },
+    "hero_headline": {
+      "type": "string"
+    },
+    "hero_subheadline": {
+      "type": "string"
+    },
+    "hero_description": {
+      "type": "string"
+    },
+    "hero_cta_text": {
+      "type": "string",
+      "default": "Request Availability"
+    },
+    "hero_supporting_line": {
+      "type": "string"
+    },
+    "hero_video_url": {
+      "type": "string"
+    },
+    "hero_video_start_time": {
+      "type": "number"
+    },
+    "hero_video_end_time": {
+      "type": "number"
+    },
+    "hero_image_url": {
+      "type": "string"
+    },
+    "problem_headline": {
+      "type": "string"
+    },
+    "problem_description": {
+      "type": "string"
+    },
+    "solution_headline": {
+      "type": "string"
+    },
+    "solution_description": {
+      "type": "string"
+    },
+    "vault_headline": {
+      "type": "string"
+    },
+    "vault_description": {
+      "type": "string"
+    },
+    "offer_headline": {
+      "type": "string"
+    },
+    "offer_items": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "process_steps": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "authority_headline": {
+      "type": "string"
+    },
+    "authority_description": {
+      "type": "string"
+    },
+    "authority_image_url": {
+      "type": "string"
+    },
+    "final_cta_headline": {
+      "type": "string"
+    },
+    "final_cta_description": {
+      "type": "string"
+    },
+    "sections_order": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "disabled_sections": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "name",
+    "slug"
+  ]
+}

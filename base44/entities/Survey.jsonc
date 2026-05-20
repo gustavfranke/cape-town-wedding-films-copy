@@ -1,0 +1,118 @@
+{
+  "name": "Survey",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "published"
+      ],
+      "default": "draft"
+    },
+    "questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "field_key": {
+            "type": "string"
+          },
+          "question": {
+            "type": "string"
+          },
+          "helper_text": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "text",
+              "textarea",
+              "date",
+              "single_select",
+              "multi_select"
+            ]
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "required": {
+            "type": "boolean",
+            "default": true
+          },
+          "order": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "end_action": {
+      "type": "string",
+      "enum": [
+        "contact_form",
+        "confirmation_only"
+      ],
+      "default": "contact_form"
+    },
+    "contact_form_id": {
+      "type": "string"
+    },
+    "confirmation_headline": {
+      "type": "string",
+      "default": "Thank you!"
+    },
+    "confirmation_text": {
+      "type": "string",
+      "default": "We'll be in touch within 24 hours."
+    },
+    "confirmation_button_text": {
+      "type": "string",
+      "default": "Visit our portfolio"
+    },
+    "confirmation_button_url": {
+      "type": "string"
+    },
+    "tag_rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "conditions": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "tags_to_add": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

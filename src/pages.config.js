@@ -56,12 +56,10 @@ import AdminLeads from './pages/AdminLeads';
 import AdminMedia from './pages/AdminMedia';
 import AdminPages from './pages/AdminPages';
 import AdminSettings from './pages/AdminSettings';
-import AdminSurvey from './pages/AdminSurvey';
-import AdminSurveyBuilder from './pages/AdminSurveyBuilder';
-import AdminSurveyDestinations from './pages/AdminSurveyDestinations';
-import AdminSurveyRules from './pages/AdminSurveyRules';
-import AdminSurveySubmissions from './pages/AdminSurveySubmissions';
-import AdminSurveyTriggers from './pages/AdminSurveyTriggers';
+import AdminSurveys from './pages/AdminSurveys';
+import AdminSurveyEditor from './pages/AdminSurveyEditor';
+import AdminContactForms from './pages/AdminContactForms';
+import AdminContactFormEditor from './pages/AdminContactFormEditor';
 import AdminTestimonials from './pages/AdminTestimonials';
 import FunnelVariantA from './pages/FunnelVariantA';
 import FunnelVariantB from './pages/FunnelVariantB';
@@ -82,12 +80,10 @@ export const PAGES = {
     "AdminMedia": AdminMedia,
     "AdminPages": AdminPages,
     "AdminSettings": AdminSettings,
-    "AdminSurvey": AdminSurvey,
-    "AdminSurveyBuilder": AdminSurveyBuilder,
-    "AdminSurveyDestinations": AdminSurveyDestinations,
-    "AdminSurveyRules": AdminSurveyRules,
-    "AdminSurveySubmissions": AdminSurveySubmissions,
-    "AdminSurveyTriggers": AdminSurveyTriggers,
+    "AdminSurveys": AdminSurveys,
+    "AdminSurveyEditor": AdminSurveyEditor,
+    "AdminContactForms": AdminContactForms,
+    "AdminContactFormEditor": AdminContactFormEditor,
     "AdminTestimonials": AdminTestimonials,
     "FunnelVariantA": FunnelVariantA,
     "FunnelVariantB": FunnelVariantB,

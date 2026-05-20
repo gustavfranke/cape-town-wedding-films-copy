@@ -113,6 +113,18 @@ function ContentEditor({ variant, onClose }) {
   const { toast } = useToast();
   const qc = useQueryClient();
 
+  const { data: surveys } = useQuery({
+    queryKey: ["surveys"],
+    queryFn: () => base44.entities.Survey.filter({ status: "published" }),
+    initialData: [],
+  });
+
+  const { data: contactForms } = useQuery({
+    queryKey: ["contactForms"],
+    queryFn: () => base44.entities.ContactForm.list(),
+    initialData: [],
+  });
+
   const mut = useMutation({
     mutationFn: (data) => base44.entities.PageVariant.update(variant.id, data),
     onSuccess: () => {
@@ -139,6 +151,51 @@ function ContentEditor({ variant, onClose }) {
           <DialogTitle className="text-white font-light">Edit Content: {variant.name}</DialogTitle>
         </DialogHeader>
         <div className="space-y-4 mt-4">
+          {/* Lead Capture */}
+          <div className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.06] space-y-3">
+            <Label className="text-white/60 text-xs uppercase tracking-wider">Lead Capture</Label>
+            <div className="flex gap-2 flex-wrap">
+              {["survey", "contact_form", "none"].map(opt => (
+                <button key={opt} onClick={() => setForm({ ...form, lead_capture_type: opt })}
+                  className={`px-4 py-2 rounded-xl text-sm transition-colors border ${
+                    (form.lead_capture_type || "contact_form") === opt
+                      ? "bg-amber-500/20 border-amber-500 text-amber-300"
+                      : "border-white/10 text-white/40 hover:text-white"
+                  }`}>
+                  {opt === "survey" ? "Survey" : opt === "contact_form" ? "Contact Form" : "None"}
+                </button>
+              ))}
+            </div>
+            {(form.lead_capture_type || "contact_form") === "survey" && (
+              <div>
+                <Label className="text-white/40 text-xs">Survey</Label>
+                {surveys.length === 0 ? (
+                  <p className="text-white/30 text-xs mt-1">No published surveys. <a href="/admin/surveys" target="_blank" className="text-amber-400 underline">Create one</a>.</p>
+                ) : (
+                  <select value={form.survey_id || ""} onChange={e => setForm({ ...form, survey_id: e.target.value })}
+                    className="mt-1.5 w-full bg-white/5 border border-white/10 text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-amber-500">
+                    <option value="">Select survey…</option>
+                    {surveys.map(s => <option key={s.id} value={s.id} className="bg-stone-900">{s.name}</option>)}
+                  </select>
+                )}
+              </div>
+            )}
+            {(form.lead_capture_type || "contact_form") === "contact_form" && (
+              <div>
+                <Label className="text-white/40 text-xs">Contact Form</Label>
+                {contactForms.length === 0 ? (
+                  <p className="text-white/30 text-xs mt-1">No forms. <a href="/admin/contact-forms" target="_blank" className="text-amber-400 underline">Create one</a>.</p>
+                ) : (
+                  <select value={form.contact_form_id || ""} onChange={e => setForm({ ...form, contact_form_id: e.target.value })}
+                    className="mt-1.5 w-full bg-white/5 border border-white/10 text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-amber-500">
+                    <option value="">Default form</option>
+                    {contactForms.map(f => <option key={f.id} value={f.id} className="bg-stone-900">{f.name}{f.is_default ? " (default)" : ""}</option>)}
+                  </select>
+                )}
+              </div>
+            )}
+          </div>
+
           {SECTION_FIELDS.map(f => (
             <div key={f.key}>
               <Label className="text-white/50 text-xs uppercase tracking-wider">{f.label}</Label>

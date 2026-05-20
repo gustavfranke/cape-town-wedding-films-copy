@@ -1,0 +1,81 @@
+{
+  "name": "ContactForm",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "is_default": {
+      "type": "boolean",
+      "default": false
+    },
+    "fields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "field_key": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "placeholder": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "text",
+              "email",
+              "tel",
+              "date",
+              "textarea",
+              "select"
+            ]
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "required": {
+            "type": "boolean",
+            "default": false
+          },
+          "order": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "submit_button_text": {
+      "type": "string",
+      "default": "Submit"
+    },
+    "success_headline": {
+      "type": "string",
+      "default": "Thank you!"
+    },
+    "success_message": {
+      "type": "string",
+      "default": "We'll be in touch shortly."
+    },
+    "success_button_text": {
+      "type": "string"
+    },
+    "success_button_url": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

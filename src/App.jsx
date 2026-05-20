@@ -61,12 +61,10 @@ const AuthenticatedApp = () => {
       {/* Admin Routes - /admin/* */}
       <Route path="/admin" element={<LayoutWrapper currentPageName="AdminDashboard"><Pages.AdminDashboard /></LayoutWrapper>} />
       <Route path="/admin/leads" element={<LayoutWrapper currentPageName="AdminLeads"><Pages.AdminLeads /></LayoutWrapper>} />
-      <Route path="/admin/survey" element={<LayoutWrapper currentPageName="AdminSurvey"><Pages.AdminSurvey /></LayoutWrapper>} />
-      <Route path="/admin/survey/builder" element={<LayoutWrapper currentPageName="AdminSurveyBuilder"><Pages.AdminSurveyBuilder /></LayoutWrapper>} />
-      <Route path="/admin/survey/triggers" element={<LayoutWrapper currentPageName="AdminSurveyTriggers"><Pages.AdminSurveyTriggers /></LayoutWrapper>} />
-      <Route path="/admin/survey/destinations" element={<LayoutWrapper currentPageName="AdminSurveyDestinations"><Pages.AdminSurveyDestinations /></LayoutWrapper>} />
-      <Route path="/admin/survey/rules" element={<LayoutWrapper currentPageName="AdminSurveyRules"><Pages.AdminSurveyRules /></LayoutWrapper>} />
-      <Route path="/admin/survey/submissions" element={<LayoutWrapper currentPageName="AdminSurveySubmissions"><Pages.AdminSurveySubmissions /></LayoutWrapper>} />
+      <Route path="/admin/surveys" element={<LayoutWrapper currentPageName="AdminSurveys"><Pages.AdminSurveys /></LayoutWrapper>} />
+      <Route path="/admin/surveys/:id/edit" element={<LayoutWrapper currentPageName="AdminSurveyEditor"><Pages.AdminSurveyEditor /></LayoutWrapper>} />
+      <Route path="/admin/contact-forms" element={<LayoutWrapper currentPageName="AdminContactForms"><Pages.AdminContactForms /></LayoutWrapper>} />
+      <Route path="/admin/contact-forms/:id/edit" element={<LayoutWrapper currentPageName="AdminContactFormEditor"><Pages.AdminContactFormEditor /></LayoutWrapper>} />
       <Route path="/admin/pages" element={<LayoutWrapper currentPageName="AdminPages"><Pages.AdminPages /></LayoutWrapper>} />
       <Route path="/admin/ab-test" element={<LayoutWrapper currentPageName="AdminABTest"><Pages.AdminABTest /></LayoutWrapper>} />
       <Route path="/admin/media" element={<LayoutWrapper currentPageName="AdminMedia"><Pages.AdminMedia /></LayoutWrapper>} />

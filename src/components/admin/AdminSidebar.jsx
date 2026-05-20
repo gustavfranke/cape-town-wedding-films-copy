@@ -3,13 +3,14 @@ import { Link, useLocation } from "react-router-dom";
 import {
   LayoutDashboard, Users, FileText, Image, Star,
   HelpCircle, Settings, Zap, BarChart3, ChevronLeft, ChevronRight,
-  ClipboardList, Plug
+  ClipboardList, Plug, Mail
 } from "lucide-react";
 
 const navItems = [
   { label: "Dashboard", icon: LayoutDashboard, path: "/admin" },
   { label: "Leads", icon: Users, path: "/admin/leads" },
-  { label: "Survey", icon: ClipboardList, path: "/admin/survey" },
+  { label: "Surveys", icon: ClipboardList, path: "/admin/surveys" },
+  { label: "Contact Forms", icon: Mail, path: "/admin/contact-forms" },
   { label: "Landing Pages", icon: FileText, path: "/admin/pages" },
   { label: "Media Library", icon: Image, path: "/admin/media" },
   { label: "Testimonials", icon: Star, path: "/admin/testimonials" },
