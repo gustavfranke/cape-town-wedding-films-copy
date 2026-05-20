@@ -12,6 +12,25 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Switch } from "@/components/ui/switch";
 import { Pencil, Save, Loader2, Copy, Plus } from "lucide-react";
 
+const DEFAULT_COPY = {
+  hero_headline: "Your Cape Town Wedding Film, Crafted Like Cinema",
+  hero_subheadline: "Award-winning wedding films for couples who want to feel every moment, forever.",
+  hero_description: "We create cinematic wedding films that capture the real emotion of your day.",
+  hero_cta_text: "Request Availability",
+  hero_supporting_line: "Limited dates available for 2025",
+  problem_headline: "Most wedding videos feel like slideshows. Yours won't.",
+  problem_description: "Generic videography misses the moments that matter. We specialize in cinematic storytelling.",
+  solution_headline: "Cinematic Films That Feel Like Your Love Story",
+  solution_description: "Every film is hand-crafted with a cinematic eye — from the vows to the first dance.",
+  vault_headline: "Your Free Luxury Vendor Vault",
+  vault_description: "Get our curated list of Cape Town's finest wedding vendors.",
+  offer_headline: "What's Included",
+  authority_headline: "About the Filmmaker",
+  authority_description: "With over 200 weddings filmed across Cape Town and the Winelands.",
+  final_cta_headline: "Ready to Capture Your Day?",
+  final_cta_description: "Spots fill fast. Check your date is available before it's gone.",
+};
+
 export default function AdminPages() {
   const [editing, setEditing] = useState(null);
   const [formData, setFormData] = useState({});
@@ -19,13 +38,26 @@ export default function AdminPages() {
   const [duplicating, setDuplicating] = useState(null);
   const [createNew, setCreateNew] = useState(false);
   const [newPageForm, setNewPageForm] = useState({ name: "", slug: "", template: "" });
+  const [seeded, setSeeded] = useState(false);
   const qc = useQueryClient();
 
-  const { data: variants } = useQuery({
+  const { data: variants, isLoading: variantsLoading } = useQuery({
     queryKey: ["admin-variants"],
     queryFn: () => base44.entities.PageVariant.list(),
     initialData: [],
   });
+
+  // Seed Offer 1 and Offer 2 if no variants exist
+  React.useEffect(() => {
+    if (!variantsLoading && variants.length === 0 && !seeded) {
+      setSeeded(true);
+      const offers = [
+        { ...DEFAULT_COPY, name: "Offer 1", slug: "offer-1", is_active: true, traffic_percent: 50 },
+        { ...DEFAULT_COPY, name: "Offer 2", slug: "offer-2", is_active: true, traffic_percent: 50 },
+      ];
+      offers.forEach(o => base44.entities.PageVariant.create(o).then(() => qc.invalidateQueries({ queryKey: ["admin-variants"] })));
+    }
+  }, [variantsLoading, variants.length]);
 
   const updateMut = useMutation({
     mutationFn: ({ id, data }) => base44.entities.PageVariant.update(id, data),
@@ -111,7 +143,7 @@ export default function AdminPages() {
       <div className="mb-8 flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-light text-white">Landing Pages</h1>
-          <p className="text-white/40 text-sm mt-1">Manage funnel variant content</p>
+          <p className="text-white/40 text-sm mt-1">Manage your offers and landing page content</p>
         </div>
         <Button onClick={() => setCreateNew(true)} className="bg-amber-600 hover:bg-amber-700 text-white rounded-xl">
           <Plus className="w-4 h-4 mr-2" /> Create New Landing Page

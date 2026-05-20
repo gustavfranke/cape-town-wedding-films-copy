@@ -8,7 +8,10 @@ export default function AdminLayout({ currentPage, children }) {
 
   useEffect(() => {
     base44.auth.isAuthenticated().then(async (authed) => {
-      if (!authed) { setAuthState("denied"); return; }
+      if (!authed) {
+        base44.auth.redirectToLogin();
+        return;
+      }
       const user = await base44.auth.me().catch(() => null);
       if (user?.role === "admin") {
         setAuthState("admin");

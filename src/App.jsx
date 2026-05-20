@@ -3,7 +3,7 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
 import NavigationTracker from '@/lib/NavigationTracker'
 import { pagesConfig } from './pages.config'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
@@ -58,6 +58,32 @@ const AuthenticatedApp = () => {
           }
         />
       ))}
+      {/* Admin Routes - /admin/* */}
+      <Route path="/admin" element={<LayoutWrapper currentPageName="AdminDashboard"><Pages.AdminDashboard /></LayoutWrapper>} />
+      <Route path="/admin/leads" element={<LayoutWrapper currentPageName="AdminLeads"><Pages.AdminLeads /></LayoutWrapper>} />
+      <Route path="/admin/survey" element={<LayoutWrapper currentPageName="AdminSurvey"><Pages.AdminSurvey /></LayoutWrapper>} />
+      <Route path="/admin/survey/builder" element={<LayoutWrapper currentPageName="AdminSurveyBuilder"><Pages.AdminSurveyBuilder /></LayoutWrapper>} />
+      <Route path="/admin/survey/triggers" element={<LayoutWrapper currentPageName="AdminSurveyTriggers"><Pages.AdminSurveyTriggers /></LayoutWrapper>} />
+      <Route path="/admin/survey/destinations" element={<LayoutWrapper currentPageName="AdminSurveyDestinations"><Pages.AdminSurveyDestinations /></LayoutWrapper>} />
+      <Route path="/admin/survey/rules" element={<LayoutWrapper currentPageName="AdminSurveyRules"><Pages.AdminSurveyRules /></LayoutWrapper>} />
+      <Route path="/admin/survey/submissions" element={<LayoutWrapper currentPageName="AdminSurveySubmissions"><Pages.AdminSurveySubmissions /></LayoutWrapper>} />
+      <Route path="/admin/pages" element={<LayoutWrapper currentPageName="AdminPages"><Pages.AdminPages /></LayoutWrapper>} />
+      <Route path="/admin/ab-test" element={<LayoutWrapper currentPageName="AdminABTest"><Pages.AdminABTest /></LayoutWrapper>} />
+      <Route path="/admin/media" element={<LayoutWrapper currentPageName="AdminMedia"><Pages.AdminMedia /></LayoutWrapper>} />
+      <Route path="/admin/testimonials" element={<LayoutWrapper currentPageName="AdminTestimonials"><Pages.AdminTestimonials /></LayoutWrapper>} />
+      <Route path="/admin/faqs" element={<LayoutWrapper currentPageName="AdminFAQs"><Pages.AdminFAQs /></LayoutWrapper>} />
+      <Route path="/admin/automations" element={<LayoutWrapper currentPageName="AdminAutomations"><Pages.AdminAutomations /></LayoutWrapper>} />
+      <Route path="/admin/analytics" element={<LayoutWrapper currentPageName="AdminAnalytics"><Pages.AdminAnalytics /></LayoutWrapper>} />
+      <Route path="/admin/settings" element={<LayoutWrapper currentPageName="AdminSettings"><Pages.AdminSettings /></LayoutWrapper>} />
+      <Route path="/admin/integrations" element={<LayoutWrapper currentPageName="AdminIntegrations"><Pages.AdminIntegrations /></LayoutWrapper>} />
+      {/* Legacy redirects */}
+      <Route path="/AdminDashboard" element={<Navigate to="/admin" replace />} />
+      <Route path="/AdminLeads" element={<Navigate to="/admin/leads" replace />} />
+      <Route path="/AdminSurvey" element={<Navigate to="/admin/survey" replace />} />
+      <Route path="/AdminPages" element={<Navigate to="/admin/pages" replace />} />
+      <Route path="/AdminABTest" element={<Navigate to="/admin/ab-test" replace />} />
+      <Route path="/AdminSettings" element={<Navigate to="/admin/settings" replace />} />
+      <Route path="/AdminAnalytics" element={<Navigate to="/admin/analytics" replace />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

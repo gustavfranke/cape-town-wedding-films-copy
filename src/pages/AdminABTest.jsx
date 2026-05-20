@@ -65,7 +65,7 @@ export default function AdminABTest() {
     <AdminLayout currentPage="AdminABTest">
       <div className="mb-8">
         <h1 className="text-2xl font-light text-white">A/B Testing</h1>
-        <p className="text-white/40 text-sm mt-1">Compare funnel variant performance</p>
+        <p className="text-white/40 text-sm mt-1">Compare Offer 1 vs Offer 2 performance</p>
       </div>
 
       {settings && (

@@ -117,14 +117,14 @@ export default function FunnelVariantB() {
     },
   });
 
-  const variant = variants.find(v => v.slug === "variant-b") || variants[1] || DEFAULT_VARIANT_B;
+  const variant = variants.find(v => v.slug === "offer-2" || v.slug === "variant-b") || variants[1] || DEFAULT_VARIANT_B;
   const settings = settingsArr?.[0];
 
   const trackEvent = useCallback((type) => {
     if (!variant) return;
     base44.entities.AnalyticsEvent.create({
       event_type: type,
-      variant: "variant-b",
+      variant: variant?.slug || "offer-2",
       device_type: window.innerWidth < 768 ? "mobile" : window.innerWidth < 1024 ? "tablet" : "desktop",
     }).catch(() => {});
   }, [variant]);

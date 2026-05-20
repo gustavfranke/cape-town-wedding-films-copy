@@ -68,6 +68,7 @@ import FunnelVariantB from './pages/FunnelVariantB';
 import Home from './pages/Home';
 import ThankYou from './pages/ThankYou';
 import SannaAfrika from './pages/SannaAfrika';
+import AdminIntegrations from './pages/AdminIntegrations';
 import __Layout from './Layout.jsx';
 
 
@@ -93,6 +94,7 @@ export const PAGES = {
     "Home": Home,
     "ThankYou": ThankYou,
     "SannaAfrika": SannaAfrika,
+    "AdminIntegrations": AdminIntegrations,
 }
 
 export const pagesConfig = {

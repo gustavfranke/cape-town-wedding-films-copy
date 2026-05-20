@@ -6,12 +6,14 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Save, Loader2 } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export default function SectionEditModal({ isOpen, onClose, variant, sectionType }) {
   const [form, setForm] = useState({});
   const [saving, setSaving] = useState(false);
   const qc = useQueryClient();
+  const { toast } = useToast();
 
   useEffect(() => {
     if (variant) {
@@ -23,12 +25,21 @@ export default function SectionEditModal({ isOpen, onClose, variant, sectionType
     mutationFn: ({ id, data }) => base44.entities.PageVariant.update(id, data),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["pageVariants"] });
+      qc.invalidateQueries({ queryKey: ["admin-variants"] });
       setSaving(false);
-      onClose();
+      toast({ title: "Changes saved", description: "Section updated successfully." });
+    },
+    onError: (err) => {
+      setSaving(false);
+      toast({ title: "Save failed", description: err?.message || "An error occurred.", variant: "destructive" });
     },
   });
 
   const handleSave = () => {
+    if (!variant?.id) {
+      toast({ title: "Cannot save", description: "No offer found in DB. Go to Landing Pages and create Offer 1 first.", variant: "destructive" });
+      return;
+    }
     setSaving(true);
     const { id, created_date, updated_date, created_by, ...rest } = form;
     updateMut.mutate({ id: variant.id, data: rest });
