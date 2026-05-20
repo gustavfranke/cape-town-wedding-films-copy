@@ -24,6 +24,31 @@ import SectionEditModal from "@/components/funnel/SectionEditModal";
 import SurveyModal from "@/components/survey/SurveyModal";
 import SurveyTrigger from "@/components/survey/SurveyTrigger";
 
+const DEFAULT_VARIANT = {
+  id: null,
+  slug: "variant-a",
+  name: "Variant A",
+  is_active: true,
+  hero_headline: "Your Cape Town Wedding Film, Crafted Like Cinema",
+  hero_subheadline: "Award-winning wedding films for couples who want to feel every moment, forever.",
+  hero_description: "We create cinematic wedding films that capture the real emotion of your day — not just the highlights, but the feeling.",
+  hero_cta_text: "Request Availability",
+  hero_supporting_line: "Limited dates available for 2025",
+  problem_headline: "Most wedding videos feel like slideshows. Yours won't.",
+  problem_description: "Generic videography misses the moments that matter most. We specialize in cinematic storytelling that preserves the real emotion of your day.",
+  solution_headline: "Cinematic Films That Feel Like Your Love Story",
+  solution_description: "Every film is hand-crafted with a cinematic eye — from the vows to the first dance, every second matters.",
+  vault_headline: "Your Free Luxury Vendor Vault",
+  vault_description: "Get our curated list of Cape Town's finest wedding vendors — photographers, florists, planners, and more.",
+  offer_headline: "What's Included",
+  offer_items: [],
+  authority_headline: "About the Filmmaker",
+  authority_description: "With over 200 weddings filmed across Cape Town and the Winelands, we bring a director's eye to every celebration.",
+  final_cta_headline: "Ready to Capture Your Day?",
+  final_cta_description: "Spots fill fast. Check your date is available before it's gone.",
+  process_steps: [],
+};
+
 export default function FunnelVariantA() {
   const [formOpen, setFormOpen] = useState(false);
   const [surveyOpen, setSurveyOpen] = useState(false);
@@ -92,7 +117,7 @@ export default function FunnelVariantA() {
     },
   });
 
-  const variant = variants.find(v => v.slug === "variant-a") || variants[0];
+  const variant = variants.find(v => v.slug === "variant-a") || variants[0] || DEFAULT_VARIANT;
   const settings = settingsArr?.[0];
 
   const trackEvent = useCallback((type) => {
@@ -174,7 +199,7 @@ export default function FunnelVariantA() {
     trackEvent("page_view");
   }, []);
 
-  if (!variant) return <div className="min-h-screen bg-stone-950 flex items-center justify-center"><div className="w-8 h-8 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" /></div>;
+
 
   return (
     <div className="bg-stone-950 min-h-screen">

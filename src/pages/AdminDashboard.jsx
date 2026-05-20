@@ -10,7 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Copy, Mail, MessageSquare, Users, TrendingUp, CheckCircle, Clock, X } from "lucide-react";
 import { format, subDays, isAfter } from "date-fns";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 
 const STATUS_OPTIONS = ["new", "contacted", "qualified", "booked", "not_a_fit"];
 const statusColors = {
@@ -132,7 +132,7 @@ export default function AdminDashboard() {
                   />
                   <Bar dataKey="count" radius={[0, 6, 6, 0]}>
                     {statusBreakdown.map((entry, i) => (
-                      <rect key={i} fill={entry.color} />
+                      <Cell key={i} fill={statusBarColors[entry.status.replace(/ /g, "_")] || "#888"} />
                     ))}
                   </Bar>
                 </BarChart>
