@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
-  LayoutDashboard, Users, FileText, TestTubes, Image, Star,
+  LayoutDashboard, Users, FileText, Image, Star,
   HelpCircle, Settings, Zap, BarChart3, ChevronLeft, ChevronRight,
   ClipboardList, Plug
 } from "lucide-react";
@@ -11,7 +11,6 @@ const navItems = [
   { label: "Leads", icon: Users, path: "/admin/leads" },
   { label: "Survey", icon: ClipboardList, path: "/admin/survey" },
   { label: "Landing Pages", icon: FileText, path: "/admin/pages" },
-  { label: "A/B Testing", icon: TestTubes, path: "/admin/ab-test" },
   { label: "Media Library", icon: Image, path: "/admin/media" },
   { label: "Testimonials", icon: Star, path: "/admin/testimonials" },
   { label: "FAQs", icon: HelpCircle, path: "/admin/faqs" },

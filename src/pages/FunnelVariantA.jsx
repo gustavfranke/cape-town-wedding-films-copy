@@ -55,9 +55,11 @@ export default function FunnelVariantA() {
   const [ctaTriggerActive, setCtaTriggerActive] = useState(false);
   const [editModal, setEditModal] = useState({ open: false, section: null });
 
+  const slugParam = new URLSearchParams(window.location.search).get("v") || "offer-1";
+
   const { data: variants } = useQuery({
-    queryKey: ["pageVariants"],
-    queryFn: () => base44.entities.PageVariant.list(),
+    queryKey: ["pageVariants", slugParam],
+    queryFn: () => base44.entities.PageVariant.filter({ slug: slugParam }),
     initialData: [],
   });
 
@@ -117,7 +119,7 @@ export default function FunnelVariantA() {
     },
   });
 
-  const variant = variants.find(v => v.slug === "offer-1" || v.slug === "variant-a") || variants[0] || DEFAULT_VARIANT;
+  const variant = variants[0] || DEFAULT_VARIANT;
   const settings = settingsArr?.[0];
 
   const trackEvent = useCallback((type) => {
@@ -179,7 +181,7 @@ export default function FunnelVariantA() {
       phone: answers.whatsapp_number,
       wedding_date: answers.wedding_date,
       guest_count: answers.guest_count,
-      funnel_variant: "variant-a",
+      funnel_variant: variant?.slug || slugParam,
       status: "new",
       tags,
       survey_completed: true
