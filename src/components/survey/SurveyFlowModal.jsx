@@ -10,7 +10,7 @@ const DEFAULT_FIELDS = [
   { id: "f_name", field_key: "name", label: "Full Name", type: "text", required: true, order: 0 },
   { id: "f_email", field_key: "email", label: "Email Address", type: "email", required: true, order: 1 },
   { id: "f_phone", field_key: "phone", label: "WhatsApp Number", type: "tel", required: false, order: 2 },
-  { id: "f_date", field_key: "wedding_date", label: "Wedding Date", type: "date", required: false, order: 3 },
+  { id: "f_date", field_key: "wedding_date", label: "Wedding Date", type: "date", required: true, order: 3 },
   { id: "f_venue", field_key: "venue", label: "Venue", type: "text", required: false, order: 4 },
   { id: "f_msg", field_key: "message", label: "Message", type: "textarea", required: false, order: 5 },
 ];
@@ -135,7 +135,7 @@ export default function SurveyFlowModal({ isOpen, onClose, survey, contactForm, 
   const renderContactForm = () => (
     <div className="space-y-4">
       <div>
-        <h3 className="text-white text-lg font-light">Almost there — just a few details</h3>
+        <h3 className="text-white text-lg font-light">Almost there, just a few details</h3>
         <p className="text-white/40 text-sm mt-1">We'll reach out within 24 hours.</p>
       </div>
       {fields.map(f => (
