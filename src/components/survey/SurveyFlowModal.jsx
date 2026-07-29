@@ -38,7 +38,9 @@ export default function SurveyFlowModal({ isOpen, onClose, survey, contactForm, 
   const [error, setError] = useState("");
 
   const questions = survey?.questions ? [...survey.questions].sort((a, b) => (a.order || 0) - (b.order || 0)) : [];
-  const fields = contactForm?.fields ? [...contactForm.fields].sort((a, b) => (a.order || 0) - (b.order || 0)) : DEFAULT_FIELDS;
+  const fields = (contactForm?.fields ? [...contactForm.fields] : DEFAULT_FIELDS)
+    .sort((a, b) => (a.order || 0) - (b.order || 0))
+    .map(f => f.field_key === "wedding_date" ? { ...f, required: true } : f);
   const totalSteps = questions.length + 1; // questions + contact form
   const isInSurvey = step < questions.length;
   const currentQ = questions[step];
