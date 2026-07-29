@@ -2,8 +2,17 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Check, Sparkles } from "lucide-react";
 
+const DEFAULT_ITEMS = [
+  { title: "A director's eye on every frame, not a fixed camera left running" },
+  { title: "Professional color grading and sound design" },
+  { title: "Licensed music, cleared for public and social sharing" },
+  { title: "Access to our trusted vendor network, with exclusive discounts and perks from planners, florists, and venues we've worked with for years" },
+  { title: "A private online gallery to view, download, and share your film" },
+  { title: "Ongoing support from enquiry to delivery" },
+];
+
 export default function OfferSection({ variant }) {
-  const items = variant?.offer_items || [];
+  const items = variant?.offer_items?.length ? variant.offer_items : DEFAULT_ITEMS;
 
   return (
     <section className="bg-stone-950 py-20 md:py-32 relative overflow-hidden">
@@ -40,12 +49,15 @@ export default function OfferSection({ variant }) {
                 </div>
                 <div>
                   <h3 className="text-white font-medium mb-1">{item.title}</h3>
-                  <p className="text-white/40 text-sm font-light leading-relaxed">{item.description}</p>
+                  {item.description && <p className="text-white/40 text-sm font-light leading-relaxed">{item.description}</p>}
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
+        <p className="text-center text-white/40 text-sm font-light italic mt-12">
+          Collections and add-ons vary by coverage and location. Ask us what fits your day.
+        </p>
       </div>
     </section>
   );

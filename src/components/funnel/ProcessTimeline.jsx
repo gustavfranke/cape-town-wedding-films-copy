@@ -5,7 +5,7 @@ const DEFAULT_STEPS = [
   { step: "01", title: "Reach Out", description: "Tell us your date, venue, and the story you want to tell. We respond within 24 hours." },
   { step: "02", title: "We Plan Together", description: "A quick call to align on style, key moments, and the people who matter most to you." },
   { step: "03", title: "Your Wedding Day", description: "We capture every moment unobtrusively (the vows, the tears, the dance floor) without ever getting in the way." },
-  { step: "04", title: "Your Film, Delivered", description: "Within 4 to 6 weeks you receive your cinematic film, crafted to be watched for generations." },
+  { step: "04", title: "Your Film, Delivered", description: "Within 8 to 12 weeks you receive your cinematic film gallery, crafted to be watched for generations." },
 ];
 
 export default function ProcessTimeline({ variant }) {

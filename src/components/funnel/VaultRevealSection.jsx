@@ -48,11 +48,11 @@ export default function VaultRevealSection({ variant, onCtaClick }) {
           </div>
 
           <Button
-            onClick={onCtaClick}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             size="lg"
             className="mt-10 bg-amber-600 hover:bg-amber-700 text-white px-10 py-6 text-base rounded-full shadow-2xl shadow-amber-900/30 transition-all duration-300 hover:scale-105"
           >
-            Get Vault Access <ArrowRight className="w-4 h-4 ml-2" />
+            See How It Works <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
         </motion.div>
       </div>
