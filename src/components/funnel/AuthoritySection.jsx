@@ -14,7 +14,7 @@ export default function AuthoritySection({ variant }) {
           >
             <div className="aspect-square rounded-3xl overflow-hidden relative">
               <img
-                src={variant?.authority_image_url || "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800"}
+                src={variant?.authority_image_url || "https://media.base44.com/images/public/6a0cca42ae1aca31e6d27baa/26b57a130_WhatsAppImage2026-02-17at105640.jpg"}
                 alt="Filmmaker"
                 className="w-full h-full object-cover"
                 loading="lazy"
@@ -38,16 +38,12 @@ export default function AuthoritySection({ variant }) {
             </p>
             <div className="mt-8 flex gap-8">
               <div>
-                <div className="text-3xl font-light text-amber-400">300+</div>
+                <div className="text-3xl font-light text-amber-400">100+</div>
                 <div className="text-xs text-white/30 uppercase tracking-wider mt-1">Weddings</div>
               </div>
               <div>
                 <div className="text-3xl font-light text-amber-400">12+</div>
                 <div className="text-xs text-white/30 uppercase tracking-wider mt-1">Years</div>
-              </div>
-              <div>
-                <div className="text-3xl font-light text-amber-400">50+</div>
-                <div className="text-xs text-white/30 uppercase tracking-wider mt-1">Vendors</div>
               </div>
             </div>
           </motion.div>
