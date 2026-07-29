@@ -11,6 +11,7 @@ import VaultRevealSection from "@/components/funnel/VaultRevealSection";
 import BenefitCards from "@/components/funnel/BenefitCards";
 import OfferSection from "@/components/funnel/OfferSection";
 import SocialProofSection from "@/components/funnel/SocialProofSection";
+import TestimonialsCarousel from "@/components/funnel/TestimonialsCarousel";
 import ObjectionSection from "@/components/funnel/ObjectionSection";
 import ProcessTimeline from "@/components/funnel/ProcessTimeline";
 import VaultPreviewGrid from "@/components/funnel/VaultPreviewGrid";
@@ -115,6 +116,7 @@ export default function FunnelVariantA() {
       <EditableSection sectionId="solution" onEdit={() => setEditModal({ open: true, section: "solution" })}>
         <SolutionSection variant={variant} />
       </EditableSection>
+      <TestimonialsCarousel />
       <EditableSection sectionId="vault" onEdit={() => setEditModal({ open: true, section: "vault" })}>
         <VaultRevealSection variant={variant} onCtaClick={handleCtaClick} />
       </EditableSection>
@@ -122,7 +124,6 @@ export default function FunnelVariantA() {
       <SocialProofSection testimonials={testimonials} />
       <ObjectionSection />
       <ProcessTimeline variant={variant} />
-      <VaultPreviewGrid categories={categories} onCtaClick={handleCtaClick} />
       <EditableSection sectionId="authority" onEdit={() => setEditModal({ open: true, section: "authority" })}>
         <AuthoritySection variant={variant} />
       </EditableSection>
@@ -133,6 +134,10 @@ export default function FunnelVariantA() {
       <EditableSection sectionId="final_cta" onEdit={() => setEditModal({ open: true, section: "final_cta" })}>
         <FinalCTASection variant={variant} onCtaClick={handleCtaClick} />
       </EditableSection>
+      <div className="bg-stone-950 pt-16 text-center">
+        <span className="text-amber-500/60 text-xs uppercase tracking-[0.3em] font-medium">A Bonus for You</span>
+      </div>
+      <VaultPreviewGrid categories={categories} onCtaClick={handleCtaClick} />
       <StickyMobileCTA variant={variant} onCtaClick={handleCtaClick} />
 
       <AnimatePresence>

@@ -1,11 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Film, Award, Users, Calendar } from "lucide-react";
+import { Film, Star, Users, Calendar } from "lucide-react";
 
 const stats = [
   { icon: Calendar, value: "12+", label: "Years Experience" },
   { icon: Film, value: "100+", label: "Weddings Filmed" },
-  { icon: Award, value: "Premium", label: "Quality Only" },
+  { icon: Star, value: "4.9", label: "68 Google Reviews" },
   { icon: Users, value: "25+", label: "Trusted Vendors" },
 ];
 

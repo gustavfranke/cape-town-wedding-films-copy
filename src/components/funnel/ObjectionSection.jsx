@@ -6,17 +6,17 @@ const objections = [
   {
     icon: Trophy,
     question: "Why premium?",
-    answer: "Because your wedding deserves the highest standard. Every detail — from the vendors we recommend to the way we edit your film — reflects a commitment to excellence that mass-market providers simply can't match.",
+    answer: "Because your wedding deserves the highest standard. Every detail, from the vendors we recommend to the way we edit your film, reflects a commitment to excellence that mass-market providers simply can't match.",
   },
   {
     icon: Clock,
     question: "Why are bookings limited?",
-    answer: "Quality is our obsession. By accepting only a limited number of weddings per season, we guarantee every couple receives our complete, undivided attention — before, during, and after the big day.",
+    answer: "Quality is our obsession. By accepting only a limited number of weddings per season, we guarantee every couple receives our complete, undivided attention (before, during, and after the big day).",
   },
   {
     icon: Shield,
     question: "Why should I trust this network?",
-    answer: "Every vendor in the Vault has been personally vetted over 12 years and hundreds of weddings. These aren't paid listings — they're relationships built on trust, talent, and consistently outstanding results.",
+    answer: "Every vendor in the Vault has been personally vetted over 12 years and hundreds of weddings. These aren't paid listings. They're relationships built on trust, talent, and consistently outstanding results.",
   },
 ];
 

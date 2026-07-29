@@ -46,6 +46,12 @@ export default function AuthoritySection({ variant }) {
                 <div className="text-xs text-white/30 uppercase tracking-wider mt-1">Years</div>
               </div>
             </div>
+            <blockquote className="mt-10 pl-5 border-l-2 border-amber-500">
+              <p className="text-white/70 font-light italic leading-relaxed text-sm md:text-base">
+                "I value a strong connection with all of my brides and grooms, and understanding your story and the significance of your wedding. This allows me to capture your day in a way that I feel best represents you as people, and your relationship. My films are crafted so that you feel proud to show your friends and family for years to come, and so that you can't wait to sit down one day and show your kids this magical occasion, frozen in time."
+              </p>
+              <footer className="mt-3 text-amber-400 text-sm font-medium">Gustav, Founder</footer>
+            </blockquote>
           </motion.div>
         </div>
       </div>

@@ -35,7 +35,10 @@ export default function FinalCTASection({ variant, onCtaClick }) {
           >
             Request Availability <ArrowRight className="w-5 h-5 ml-2" />
           </Button>
-          <p className="text-white/30 text-sm mt-4 tracking-wider">Limited bookings per season</p>
+          <p className="text-amber-400 text-sm mt-6 font-light tracking-wide">
+            Destination packages from $2,700 USD, including travel within South Africa.
+          </p>
+          <p className="text-white/30 text-sm mt-4 tracking-wider">Limited bookings for 2027</p>
         </motion.div>
       </div>
     </section>
