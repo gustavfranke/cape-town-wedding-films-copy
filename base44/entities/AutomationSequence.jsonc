@@ -1,0 +1,68 @@
+{
+  "name": "AutomationSequence",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "trigger": {
+      "type": "string",
+      "enum": [
+        "new_lead",
+        "qualified",
+        "booked"
+      ]
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "email",
+        "whatsapp"
+      ]
+    },
+    "variant_filter": {
+      "type": "string",
+      "description": "Which variant triggers this"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": false
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "paused",
+        "integration_pending"
+      ],
+      "default": "integration_pending"
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "step_number": {
+            "type": "number"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "delay_hours": {
+            "type": "number",
+            "default": 0
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "name",
+    "trigger",
+    "type"
+  ]
+}

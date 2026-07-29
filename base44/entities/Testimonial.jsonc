@@ -1,0 +1,35 @@
+{
+  "name": "Testimonial",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string",
+      "description": "e.g. Bride, Couple"
+    },
+    "quote": {
+      "type": "string"
+    },
+    "rating": {
+      "type": "number",
+      "default": 5
+    },
+    "photo_url": {
+      "type": "string"
+    },
+    "variant": {
+      "type": "string",
+      "description": "Assigned variant slug or 'all'"
+    },
+    "is_featured": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "name",
+    "quote"
+  ]
+}

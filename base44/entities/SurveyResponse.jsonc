@@ -1,0 +1,76 @@
+{
+  "name": "SurveyResponse",
+  "type": "object",
+  "properties": {
+    "lead_id": {
+      "type": "string",
+      "description": "Reference to Lead entity"
+    },
+    "page_variant_id": {
+      "type": "string",
+      "description": "Which page variant they submitted from"
+    },
+    "answers": {
+      "type": "object",
+      "description": "Survey answers as JSON object",
+      "properties": {
+        "wedding_date": {
+          "type": "string"
+        },
+        "wedding_setting": {
+          "type": "string"
+        },
+        "guest_count": {
+          "type": "string"
+        },
+        "wedding_style": {
+          "type": "string"
+        },
+        "film_vibe": {
+          "type": "string"
+        },
+        "film_priorities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "planning_stage": {
+          "type": "string"
+        },
+        "vault_interest": {
+          "type": "string"
+        },
+        "planning_support": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "wedding_feel_sentence": {
+          "type": "string"
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Auto-assigned tags based on rules"
+    },
+    "completed": {
+      "type": "boolean",
+      "default": false
+    },
+    "progress_step": {
+      "type": "number",
+      "default": 0,
+      "description": "Last completed step for resuming"
+    }
+  },
+  "required": [
+    "lead_id",
+    "page_variant_id"
+  ]
+}

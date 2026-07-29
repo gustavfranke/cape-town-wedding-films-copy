@@ -119,9 +119,6 @@ export default function FunnelVariantA() {
         <VaultRevealSection variant={variant} onCtaClick={handleCtaClick} />
       </EditableSection>
       <BenefitCards />
-      <EditableSection sectionId="offer" onEdit={() => setEditModal({ open: true, section: "offer" })}>
-        <OfferSection variant={variant} />
-      </EditableSection>
       <SocialProofSection testimonials={testimonials} />
       <ObjectionSection />
       <ProcessTimeline variant={variant} />
@@ -130,6 +127,9 @@ export default function FunnelVariantA() {
         <AuthoritySection variant={variant} />
       </EditableSection>
       <FAQSection faqs={faqs} />
+      <EditableSection sectionId="offer" onEdit={() => setEditModal({ open: true, section: "offer" })}>
+        <OfferSection variant={variant} />
+      </EditableSection>
       <EditableSection sectionId="final_cta" onEdit={() => setEditModal({ open: true, section: "final_cta" })}>
         <FinalCTASection variant={variant} onCtaClick={handleCtaClick} />
       </EditableSection>

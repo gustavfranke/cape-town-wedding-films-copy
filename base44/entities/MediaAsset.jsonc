@@ -1,0 +1,32 @@
+{
+  "name": "MediaAsset",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "file_url": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "image",
+        "video"
+      ]
+    },
+    "category": {
+      "type": "string",
+      "description": "e.g. hero, section, testimonial"
+    },
+    "assigned_to": {
+      "type": "string",
+      "description": "Section or variant assignment"
+    }
+  },
+  "required": [
+    "title",
+    "file_url",
+    "type"
+  ]
+}

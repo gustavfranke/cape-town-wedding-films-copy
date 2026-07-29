@@ -1,0 +1,88 @@
+{
+  "name": "SiteSettings",
+  "type": "object",
+  "properties": {
+    "site_name": {
+      "type": "string",
+      "default": "Cape Town Wedding Films"
+    },
+    "reply_time_text": {
+      "type": "string",
+      "default": "We typically respond within 24 hours"
+    },
+    "contact_email": {
+      "type": "string"
+    },
+    "privacy_policy_link": {
+      "type": "string"
+    },
+    "booking_calendar_link": {
+      "type": "string"
+    },
+    "seo_title": {
+      "type": "string"
+    },
+    "seo_description": {
+      "type": "string"
+    },
+    "og_image_url": {
+      "type": "string"
+    },
+    "split_test_enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "theme": {
+      "type": "string",
+      "enum": [
+        "dark",
+        "light"
+      ],
+      "default": "dark"
+    },
+    "form_fields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "form_button_text": {
+      "type": "string",
+      "default": "Request Availability"
+    },
+    "form_success_message": {
+      "type": "string",
+      "default": "Thank you! We'll be in touch within 24 hours."
+    },
+    "thankyou_show_vault": {
+      "type": "boolean",
+      "default": true
+    },
+    "thankyou_booking_link": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "site_name"
+  ]
+}

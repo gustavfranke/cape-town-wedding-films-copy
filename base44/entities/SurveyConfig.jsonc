@@ -1,0 +1,194 @@
+{
+  "name": "SurveyConfig",
+  "type": "object",
+  "properties": {
+    "config_key": {
+      "type": "string",
+      "description": "Unique key: questions, triggers, destinations, rules"
+    },
+    "questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "field_key": {
+            "type": "string"
+          },
+          "question": {
+            "type": "string"
+          },
+          "helper_text": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "text",
+              "textarea",
+              "date",
+              "single_select",
+              "multi_select",
+              "contact_step"
+            ]
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "required": {
+            "type": "boolean",
+            "default": true
+          },
+          "order": {
+            "type": "number"
+          },
+          "conditional_rules": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "condition_field": {
+                  "type": "string"
+                },
+                "condition_value": {
+                  "type": "string"
+                },
+                "action": {
+                  "type": "string",
+                  "enum": [
+                    "show",
+                    "hide"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "triggers": {
+      "type": "object",
+      "properties": {
+        "cta_enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "scroll_enabled": {
+          "type": "boolean",
+          "default": false
+        },
+        "scroll_percent": {
+          "type": "number",
+          "default": 50
+        },
+        "time_enabled": {
+          "type": "boolean",
+          "default": false
+        },
+        "time_seconds": {
+          "type": "number",
+          "default": 30
+        },
+        "exit_intent_enabled": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "destinations": {
+      "type": "object",
+      "properties": {
+        "confirmation_headline": {
+          "type": "string",
+          "default": "Your Vendor Vault Access Is Confirmed"
+        },
+        "confirmation_text": {
+          "type": "string",
+          "default": "We will reach out within 24 to 48 hours with availability and next steps."
+        },
+        "primary_button_text": {
+          "type": "string",
+          "default": "Book Your Free Consultation"
+        },
+        "primary_button_url": {
+          "type": "string"
+        },
+        "secondary_button_enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "secondary_button_text": {
+          "type": "string",
+          "default": "Download Vendor Vault"
+        },
+        "secondary_button_url": {
+          "type": "string"
+        }
+      }
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "conditions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "field": {
+                  "type": "string"
+                },
+                "operator": {
+                  "type": "string",
+                  "enum": [
+                    "equals",
+                    "contains"
+                  ]
+                },
+                "value": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "add_tag"
+                  ]
+                },
+                "value": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "remember_progress": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "config_key"
+  ]
+}

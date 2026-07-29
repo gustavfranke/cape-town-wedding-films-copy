@@ -1,0 +1,75 @@
+{
+  "name": "Lead",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Full name"
+    },
+    "email": {
+      "type": "string",
+      "description": "Email address"
+    },
+    "phone": {
+      "type": "string",
+      "description": "WhatsApp number"
+    },
+    "wedding_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Wedding date"
+    },
+    "venue": {
+      "type": "string",
+      "description": "Venue name"
+    },
+    "guest_count": {
+      "type": "string",
+      "description": "Estimated guest count"
+    },
+    "message": {
+      "type": "string",
+      "description": "Additional message"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "contacted",
+        "qualified",
+        "booked",
+        "not_a_fit"
+      ],
+      "default": "new"
+    },
+    "funnel_variant": {
+      "type": "string",
+      "description": "Which variant they came from"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Internal notes"
+    },
+    "last_contacted": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last contact date"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Lead tags from survey rules"
+    },
+    "survey_completed": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether lead completed survey"
+    }
+  },
+  "required": [
+    "name",
+    "email"
+  ]
+}
