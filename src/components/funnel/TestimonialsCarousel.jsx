@@ -4,37 +4,37 @@ import { Star } from "lucide-react";
 
 const testimonials = [
   {
-    photo: "https://base44.app/api/apps/6a0cca42ae1aca31e6d27baa/files/mp/public/6a0cca42ae1aca31e6d27baa/bf6d29450_RichyKelly.jpg",
+    photo: "https://base44.app/api/apps/6a0cca42ae1aca31e6d27baa/files/mp/public/6a0cca42ae1aca31e6d27baa/9606e075e_richard-kelly-v2.jpg",
     quote: "Gustav did the perfect job at bringing our wedding day back to life months later. We laughed, we cried and we watched in awe of the magic he created.",
     names: "Richard & Kelly",
     venue: "Johannesdal, Stellenbosch",
   },
   {
-    photo: "https://base44.app/api/apps/6a0cca42ae1aca31e6d27baa/files/mp/public/6a0cca42ae1aca31e6d27baa/a9a9b9849_HannahJohnpaul.jpg",
+    photo: "https://base44.app/api/apps/6a0cca42ae1aca31e6d27baa/files/mp/public/6a0cca42ae1aca31e6d27baa/e3e728e61_hannah-johnpaul-v2.jpg",
     quote: "He has an incredible talent for piecing your day together and bottling the magic along with it. They've made the day come alive again, and we'll cherish them forever.",
     names: "Hannah & Johnpaul",
     venue: "Landtscap, Stellenbosch",
   },
   {
-    photo: "https://base44.app/api/apps/6a0cca42ae1aca31e6d27baa/files/mp/public/6a0cca42ae1aca31e6d27baa/029ded641_MichaelaJoe.jpg",
+    photo: "https://base44.app/api/apps/6a0cca42ae1aca31e6d27baa/files/mp/public/6a0cca42ae1aca31e6d27baa/8e0245630_michaela-joe-v2.jpg",
     quote: "Gustav captured the emotion, energy, and feeling of the day so beautifully and authentically, and somehow managed to turn our memories into something even more special than we could have imagined.",
     names: "Michaela & Joe",
     venue: "Bosjes, Breede Valley",
   },
   {
-    photo: "https://base44.app/api/apps/6a0cca42ae1aca31e6d27baa/files/mp/public/6a0cca42ae1aca31e6d27baa/86d5bcf49_BenCamila.jpg",
+    photo: "https://base44.app/api/apps/6a0cca42ae1aca31e6d27baa/files/mp/public/6a0cca42ae1aca31e6d27baa/4b60e3f28_ben-camila-v2.jpg",
     quote: "The videos he made look like a feature production film that has all of our friends and family amazed.",
     names: "Ben & Camila",
     venue: "Tintswalo Atlantic, Hout Bay",
   },
   {
-    photo: "https://base44.app/api/apps/6a0cca42ae1aca31e6d27baa/files/mp/public/6a0cca42ae1aca31e6d27baa/2c25de91e_FinnErin.png",
+    photo: "https://base44.app/api/apps/6a0cca42ae1aca31e6d27baa/files/mp/public/6a0cca42ae1aca31e6d27baa/683462204_finn-erin-v2.jpg",
     quote: "There is a genuine authenticity to his work, which stems from the fact that he really takes the time and makes the effort to get to know you.",
     names: "Finn & Erin",
     venue: "Boschendal, Franschhoek",
   },
   {
-    photo: "https://base44.app/api/apps/6a0cca42ae1aca31e6d27baa/files/mp/public/6a0cca42ae1aca31e6d27baa/d3ce547bc_chrisnozzi.jpg",
+    photo: "https://base44.app/api/apps/6a0cca42ae1aca31e6d27baa/files/mp/public/6a0cca42ae1aca31e6d27baa/5c60679c2_chris-nozzi-v2.jpg",
     quote: 'Without much direction from us, he was able to put together a beautiful video depicting our multicultural wedding, which my mum refers to as "it\'s like watching a movie."',
     names: "Chris & Nozzi",
     venue: "De Uijlenes, Gansbaai",
