@@ -9,7 +9,7 @@ export default function FinalCTASection({ variant, onCtaClick }) {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-amber-900/20 via-transparent to-transparent" />
       <div className="absolute inset-0">
         <img
-          src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=1920"
+          src="https://base44.app/api/apps/6a0cca42ae1aca31e6d27baa/files/mp/public/6a0cca42ae1aca31e6d27baa/4992a8e28_CeremonyClip-min.png"
           alt=""
           className="w-full h-full object-cover opacity-10"
           loading="lazy"
