@@ -29,14 +29,25 @@ export default function HeroSection({ variant, onCtaClick }) {
       {/* Background Video / Image */}
       <div className="absolute inset-0 z-0">
         {variant?.hero_video_url ? (
-          <iframe
-            src={getVideoUrl()}
-            className="absolute w-[200%] h-[200%] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-            frameBorder="0"
-            allow="autoplay; fullscreen"
-            allowFullScreen
-            title="Hero Video"
-          />
+          variant.hero_video_url.match(/\.(mp4|webm|ogg)$/i) ? (
+            <video
+              src={variant.hero_video_url}
+              className="absolute w-full h-full object-cover"
+              autoPlay
+              loop
+              muted
+              playsInline
+            />
+          ) : (
+            <iframe
+              src={getVideoUrl()}
+              className="absolute w-[200%] h-[200%] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+              frameBorder="0"
+              allow="autoplay; fullscreen"
+              allowFullScreen
+              title="Hero Video"
+            />
+          )
         ) : (
           <img
             src={variant?.hero_image_url || "https://images.unsplash.com/photo-1519741497674-611481863552?w=1920"}
