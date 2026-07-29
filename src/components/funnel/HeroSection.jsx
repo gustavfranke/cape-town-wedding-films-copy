@@ -31,12 +31,13 @@ export default function HeroSection({ variant, onCtaClick }) {
         {variant?.hero_video_url ? (
           variant.hero_video_url.match(/\.(mp4|webm|ogg)$/i) ? (
             <video
-              src={variant.hero_video_url}
+              src={`${variant.hero_video_url}#t=0.1`}
               className="absolute w-full h-full object-cover"
               autoPlay
               loop
               muted
               playsInline
+              preload="auto"
             />
           ) : (
             <iframe
@@ -49,11 +50,13 @@ export default function HeroSection({ variant, onCtaClick }) {
             />
           )
         ) : (
-          <img
-            src={variant?.hero_image_url || "https://images.unsplash.com/photo-1519741497674-611481863552?w=1920"}
-            alt="Wedding"
-            className="w-full h-full object-cover"
-          />
+          variant?.hero_image_url ? (
+            <img
+              src={variant.hero_image_url}
+              alt="Wedding"
+              className="w-full h-full object-cover"
+            />
+          ) : null
         )}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
       </div>
