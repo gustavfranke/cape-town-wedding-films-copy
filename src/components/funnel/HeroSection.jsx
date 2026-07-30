@@ -61,6 +61,15 @@ export default function HeroSection({ variant, onCtaClick }) {
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
       </div>
 
+      {/* Brand Logo */}
+      <div className="absolute top-0 left-0 z-10 p-6 md:p-8">
+        <img
+          src="https://media.base44.com/images/public/6a0cca42ae1aca31e6d27baa/2c43b692f_GF-primary-logo-white.png"
+          alt="Gustav Franke Cinematography"
+          className="h-16 md:h-20 w-auto opacity-80"
+        />
+      </div>
+
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
         <motion.div
