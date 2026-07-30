@@ -16,6 +16,7 @@ export default function LeadForm({ variant, settings, onSubmit, onClose, isOpen 
     e.preventDefault();
     setLoading(true);
     await onSubmit({ ...formData, funnel_variant: variant?.slug || "unknown" });
+    if (typeof window.fbq === 'function') window.fbq('track', 'Lead');
     setLoading(false);
   };
 

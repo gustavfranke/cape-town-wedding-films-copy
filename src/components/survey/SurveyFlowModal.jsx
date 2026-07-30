@@ -86,6 +86,7 @@ export default function SurveyFlowModal({ isOpen, onClose, survey, contactForm, 
           progress_step: questions.length,
         });
       }
+      if (typeof window.fbq === 'function') window.fbq('track', 'Lead');
       setDone(true);
     } catch (e) {
       setError(e?.message || "Something went wrong. Please try again.");
