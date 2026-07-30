@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Film, Star, Users, Calendar } from "lucide-react";
 
 const stats = [
-  { icon: Calendar, value: "12+", label: "Years Experience" },
+  { icon: Calendar, value: "7+", label: "Years Experience" },
   { icon: Film, value: "100+", label: "Weddings Filmed" },
   { icon: Star, value: "4.9", label: "68 Google Reviews" },
   { icon: Users, value: "25+", label: "Trusted Vendors" },

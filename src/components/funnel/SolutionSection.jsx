@@ -65,7 +65,7 @@ export default function SolutionSection({ variant }) {
             </div>
             <div className="absolute -bottom-4 -left-4 w-32 h-32 rounded-2xl bg-amber-600/20 backdrop-blur-xl border border-amber-500/20 flex items-center justify-center">
               <div className="text-center">
-                <div className="text-2xl font-light text-white">12+</div>
+                <div className="text-2xl font-light text-white">7+</div>
                 <div className="text-[10px] text-white/50 uppercase tracking-wider">Years</div>
               </div>
             </div>

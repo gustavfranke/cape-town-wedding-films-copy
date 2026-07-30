@@ -31,7 +31,7 @@ export default function AuthoritySection({ variant }) {
           >
             <span className="text-amber-500 text-xs uppercase tracking-[0.3em] font-medium">The Filmmaker</span>
             <h2 className="text-3xl md:text-4xl font-light text-white mt-4 leading-tight">
-              {variant?.authority_headline || "12 Years. Hundreds of Weddings. One Obsession."}
+              {variant?.authority_headline || "7 Years. Hundreds of Weddings. One Obsession."}
             </h2>
             <p className="text-white/50 mt-6 font-light leading-relaxed">
               {variant?.authority_description || ""}
@@ -42,7 +42,7 @@ export default function AuthoritySection({ variant }) {
                 <div className="text-xs text-white/30 uppercase tracking-wider mt-1">Weddings</div>
               </div>
               <div>
-                <div className="text-3xl font-light text-amber-400">12+</div>
+                <div className="text-3xl font-light text-amber-400">7+</div>
                 <div className="text-xs text-white/30 uppercase tracking-wider mt-1">Years</div>
               </div>
             </div>
