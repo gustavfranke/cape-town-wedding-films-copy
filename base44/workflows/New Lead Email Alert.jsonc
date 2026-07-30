@@ -1,19 +1,9 @@
 {
-  "trigger": {
-    "condition": null,
-    "config": {
-      "trigger_type": "entity",
-      "events": [
-        "create"
-      ],
-      "entity_name": "Lead"
-    }
-  },
   "definition": {
     "document": {
       "dsl": "1.0.0",
       "name": "new_lead_email_alert",
-      "version": "1.0",
+      "version": "1.1",
       "namespace": "base44"
     },
     "do": [
@@ -35,15 +25,44 @@
               }
             }
           },
-          "then": "end",
+          "then": "send_confirmation",
           "x-base44": {
             "title": "Send lead alert email",
             "description": "Gmail alert to builder"
           }
         }
+      },
+      {
+        "send_confirmation": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "sendLeadConfirmation",
+            "args": {
+              "lead": {
+                "name": "${ .trigger.data.name }",
+                "email": "${ .trigger.data.email }"
+              }
+            }
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "Send confirmation email to lead",
+            "description": "Thank you email via Gmail"
+          }
+        }
       }
     ]
   },
-  "description": "Sends a Gmail alert email to the builder whenever a new lead is created",
-  "name": "New Lead Email Alert"
+  "name": "New Lead Email Alert",
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "entity",
+      "events": [
+        "create"
+      ],
+      "entity_name": "Lead"
+    }
+  },
+  "description": "Sends a Gmail alert email to the builder and a confirmation email to the lead whenever a new lead is created"
 }
