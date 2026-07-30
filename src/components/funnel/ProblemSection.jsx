@@ -4,10 +4,10 @@ import { AlertTriangle } from "lucide-react";
 
 export default function ProblemSection({ variant }) {
   const painPoints = [
-    "Spending hours comparing vendors with no way to know who's actually reliable",
+    "Planning a wedding on another continent, without ever seeing the venue in person",
     "Worrying your videographer will miss the moments that matter most",
-    "Coordinating dozens of vendors who've never worked together",
-    "Feeling overwhelmed by decisions that should be joyful",
+    "Wondering if you can trust a 'safe pair of hands' you've only met over a video call",
+    "Not knowing if the footage will do justice to how far you traveled for this day",
   ];
 
   return (
