@@ -11,6 +11,11 @@ Deno.serve(async (req) => {
     const userinfo = await userinfoRes.json();
     const fromEmail = userinfo.email;
 
+    // Fetch reaction video URL from Media Library
+    const reactionAssets = await base44.asServiceRole.entities.MediaAsset.filter({ category: "reaction", type: "video" });
+    const reactionLink = reactionAssets[0]?.file_url || "";
+    const PORTFOLIO_LINK = "[PORTFOLIO_LINK]";
+
     const body = await req.json();
     const lead = body.lead || {};
     const toEmail = lead.email;
@@ -19,8 +24,8 @@ Deno.serve(async (req) => {
       return Response.json({ error: "Lead has no email address" }, { status: 400 });
     }
 
-    const firstName = (lead.name || "there").split(" ")[0];
-    const subject = `Thank you for your enquiry, ${firstName}!`;
+    const fullName = lead.name || "there";
+    const subject = `Thank you for your enquiry, ${fullName}!`;
 
     const htmlBody = `
 <!DOCTYPE html>
@@ -34,11 +39,13 @@ Deno.serve(async (req) => {
           <h1 style="margin:0;color:#d4af37;font-size:24px;font-weight:normal;letter-spacing:1px;">Cape Town Wedding Films</h1>
         </td></tr>
         <tr><td style="padding:40px;">
-          <p style="color:#fafafa;font-size:18px;line-height:1.6;">Dear ${firstName},</p>
+          <p style="color:#fafafa;font-size:18px;line-height:1.6;">Dear ${fullName},</p>
           <p style="color:#ccc;font-size:15px;line-height:1.7;">Thank you so much for your enquiry. We are genuinely honoured that you are considering us to capture your wedding day.</p>
+          ${reactionLink ? `<p style="color:#ccc;font-size:15px;line-height:1.7;">While you wait, here's how it feels to watch your own wedding day come back to life: <a href="${reactionLink}" style="color:#d4af37;">${reactionLink}</a></p>` : ""}
           <p style="color:#ccc;font-size:15px;line-height:1.7;">We will be in touch within 24 hours to discuss your vision, check our availability, and answer any questions you may have.</p>
           <p style="color:#ccc;font-size:15px;line-height:1.7;">In the meantime, if you would like to reach us sooner, feel free to reply directly to this email.</p>
-          <p style="color:#ccc;font-size:15px;line-height:1.7;">With warm regards,<br/><span style="color:#d4af37;">The Cape Town Wedding Films Team</span></p>
+          <p style="color:#ccc;font-size:15px;line-height:1.7;">You can also browse our full wedding films at <a href="${PORTFOLIO_LINK}" style="color:#d4af37;">${PORTFOLIO_LINK}</a>.</p>
+          <p style="color:#ccc;font-size:15px;line-height:1.7;">With warm regards,<br/><span style="color:#d4af37;">Gustav Franke</span><br/><span style="color:#d4af37;">Cape Town Wedding Films</span></p>
         </td></tr>
         <tr><td style="padding:20px 40px 30px;text-align:center;border-top:1px solid #222;">
           <p style="color:#555;font-size:12px;margin:0;">Cape Town Wedding Films &middot; Cape Town, South Africa</p>
@@ -49,7 +56,7 @@ Deno.serve(async (req) => {
 </body>
 </html>`;
 
-    const textBody = `Dear ${firstName},\n\nThank you so much for your enquiry. We are genuinely honoured that you are considering us to capture your wedding day.\n\nWe will be in touch within 24 hours to discuss your vision, check our availability, and answer any questions you may have.\n\nIn the meantime, if you would like to reach us sooner, feel free to reply directly to this email.\n\nWith warm regards,\nThe Cape Town Wedding Films Team`;
+    const textBody = `Dear ${fullName},\n\nThank you so much for your enquiry. We are genuinely honoured that you are considering us to capture your wedding day.\n${reactionLink ? `\nWhile you wait, here's how it feels to watch your own wedding day come back to life: ${reactionLink}\n` : ""}\nWe will be in touch within 24 hours to discuss your vision, check our availability, and answer any questions you may have.\n\nIn the meantime, if you would like to reach us sooner, feel free to reply directly to this email.\n\nYou can also browse our full wedding films at ${PORTFOLIO_LINK}.\n\nWith warm regards,\nGustav Franke\nCape Town Wedding Films`;
 
     const mimeMessage =
       `To: ${toEmail}\r\n` +

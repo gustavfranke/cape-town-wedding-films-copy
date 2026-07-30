@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -36,6 +36,13 @@ export default function SurveyFlowModal({ isOpen, onClose, survey, contactForm, 
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState("");
+  const [reactionVideo, setReactionVideo] = useState(null);
+
+  useEffect(() => {
+    base44.entities.MediaAsset.filter({ category: "reaction", type: "video" })
+      .then(assets => { if (assets[0]?.file_url) setReactionVideo(assets[0]); })
+      .catch(() => {});
+  }, []);
 
   const questions = survey?.questions ? [...survey.questions].sort((a, b) => (a.order || 0) - (b.order || 0)) : [];
   const fields = (contactForm?.fields ? [...contactForm.fields] : DEFAULT_FIELDS)
@@ -164,6 +171,17 @@ export default function SurveyFlowModal({ isOpen, onClose, survey, contactForm, 
       </div>
       <h3 className="text-white text-2xl font-light">{confirmHeadline}</h3>
       <p className="text-white/50 leading-relaxed">{confirmText}</p>
+      {reactionVideo?.file_url && (
+        <div className="mt-4">
+          <video
+            src={reactionVideo.file_url}
+            autoPlay
+            muted
+            controls
+            className="w-full rounded-xl border border-white/10"
+          />
+        </div>
+      )}
       {confirmBtnText && confirmBtnUrl && (
         <a href={confirmBtnUrl} target="_blank" rel="noreferrer">
           <Button className="bg-amber-600 hover:bg-amber-700 text-white rounded-xl px-8">{confirmBtnText}</Button>
