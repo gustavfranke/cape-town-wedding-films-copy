@@ -4,7 +4,7 @@
   "properties": {
     "site_name": {
       "type": "string",
-      "default": "Cape Town Wedding Films"
+      "default": "Gustav Franke Cinematography"
     },
     "reply_time_text": {
       "type": "string",

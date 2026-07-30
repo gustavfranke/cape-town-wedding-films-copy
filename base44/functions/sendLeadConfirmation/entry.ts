@@ -14,6 +14,7 @@ Deno.serve(async (req) => {
     // Fetch reaction video URL from Media Library
     const reactionAssets = await base44.asServiceRole.entities.MediaAsset.filter({ category: "reaction", type: "video" });
     const reactionLink = reactionAssets[0]?.file_url || "";
+    const WEDDING_FILM_LINK = "[WEDDING_FILM_LINK]";
     const PORTFOLIO_LINK = "[PORTFOLIO_LINK]";
 
     const body = await req.json();
@@ -36,19 +37,19 @@ Deno.serve(async (req) => {
     <tr><td align="center">
       <table width="600" cellpadding="0" cellspacing="0" style="background:#111;border:1px solid #222;border-radius:8px;overflow:hidden;">
         <tr><td style="background:#0a0a0a;padding:30px 40px;text-align:center;border-bottom:1px solid #222;">
-          <h1 style="margin:0;color:#d4af37;font-size:24px;font-weight:normal;letter-spacing:1px;">Cape Town Wedding Films</h1>
+          <h1 style="margin:0;color:#d4af37;font-size:24px;font-weight:normal;letter-spacing:1px;">Gustav Franke Cinematography</h1>
         </td></tr>
         <tr><td style="padding:40px;">
           <p style="color:#fafafa;font-size:18px;line-height:1.6;">Dear ${fullName},</p>
           <p style="color:#ccc;font-size:15px;line-height:1.7;">Thank you so much for your enquiry. We are genuinely honoured that you are considering us to capture your wedding day.</p>
-          ${reactionLink ? `<p style="color:#ccc;font-size:15px;line-height:1.7;">While you wait, here's how it feels to watch your own wedding day come back to life: <a href="${reactionLink}" style="color:#d4af37;">${reactionLink}</a></p>` : ""}
+          ${reactionLink ? `<p style="color:#ccc;font-size:15px;line-height:1.7;">While you wait, here's how it feels to watch your own wedding day come back to life: <a href="${reactionLink}" style="color:#d4af37;">Richard &amp; Kelly's Reaction Video</a></p><p style="color:#ccc;font-size:15px;line-height:1.7;">You can also watch a full destination wedding film here: <a href="${WEDDING_FILM_LINK}" style="color:#d4af37;">Epic Destination Wedding in Cape Town</a></p>` : ""}
           <p style="color:#ccc;font-size:15px;line-height:1.7;">We will be in touch within 24 hours to discuss your vision, check our availability, and answer any questions you may have.</p>
           <p style="color:#ccc;font-size:15px;line-height:1.7;">In the meantime, if you would like to reach us sooner, feel free to reply directly to this email.</p>
           <p style="color:#ccc;font-size:15px;line-height:1.7;">You can also browse our full wedding films at <a href="${PORTFOLIO_LINK}" style="color:#d4af37;">${PORTFOLIO_LINK}</a>.</p>
-          <p style="color:#ccc;font-size:15px;line-height:1.7;">With warm regards,<br/><span style="color:#d4af37;">Gustav Franke</span><br/><span style="color:#d4af37;">Cape Town Wedding Films</span></p>
+          <p style="color:#ccc;font-size:15px;line-height:1.7;">With warm regards,<br/><span style="color:#d4af37;">Gustav Franke</span><br/><span style="color:#d4af37;">Gustav Franke Cinematography</span></p>
         </td></tr>
         <tr><td style="padding:20px 40px 30px;text-align:center;border-top:1px solid #222;">
-          <p style="color:#555;font-size:12px;margin:0;">Cape Town Wedding Films &middot; Cape Town, South Africa</p>
+          <p style="color:#555;font-size:12px;margin:0;">Gustav Franke Cinematography &middot; Cape Town, South Africa</p>
         </td></tr>
       </table>
     </td></tr>
@@ -56,12 +57,12 @@ Deno.serve(async (req) => {
 </body>
 </html>`;
 
-    const textBody = `Dear ${fullName},\n\nThank you so much for your enquiry. We are genuinely honoured that you are considering us to capture your wedding day.\n${reactionLink ? `\nWhile you wait, here's how it feels to watch your own wedding day come back to life: ${reactionLink}\n` : ""}\nWe will be in touch within 24 hours to discuss your vision, check our availability, and answer any questions you may have.\n\nIn the meantime, if you would like to reach us sooner, feel free to reply directly to this email.\n\nYou can also browse our full wedding films at ${PORTFOLIO_LINK}.\n\nWith warm regards,\nGustav Franke\nCape Town Wedding Films`;
+    const textBody = `Dear ${fullName},\n\nThank you so much for your enquiry. We are genuinely honoured that you are considering us to capture your wedding day.\n${reactionLink ? `\nWhile you wait, here's how it feels to watch your own wedding day come back to life: Richard & Kelly's Reaction Video (${reactionLink})\n\nYou can also watch a full destination wedding film here: Epic Destination Wedding in Cape Town (${WEDDING_FILM_LINK})\n` : ""}\nWe will be in touch within 24 hours to discuss your vision, check our availability, and answer any questions you may have.\n\nIn the meantime, if you would like to reach us sooner, feel free to reply directly to this email.\n\nYou can also browse our full wedding films at ${PORTFOLIO_LINK}.\n\nWith warm regards,\nGustav Franke\nGustav Franke Cinematography`;
 
     const mimeMessage =
       `To: ${toEmail}\r\n` +
       `Subject: =?UTF-8?B?${btoa(unescape(encodeURIComponent(subject)))}?=\r\n` +
-      `From: Cape Town Wedding Films <${fromEmail}>\r\n` +
+      `From: Gustav Franke Cinematography <${fromEmail}>\r\n` +
       `Reply-To: ${fromEmail}\r\n` +
       `Content-Type: text/html; charset=UTF-8\r\n` +
       `MIME-Version: 1.0\r\n` +

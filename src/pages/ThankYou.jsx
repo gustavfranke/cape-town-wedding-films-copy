@@ -96,7 +96,7 @@ export default function ThankYou() {
 
         <div className="mt-12 flex items-center justify-center gap-2 text-white/20 text-sm">
           <Heart className="w-3.5 h-3.5" />
-          <span>{settings?.site_name || "Cape Town Wedding Films"}</span>
+          <span>{settings?.site_name || "Gustav Franke Cinematography"}</span>
         </div>
       </motion.div>
     </div>

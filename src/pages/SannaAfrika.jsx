@@ -154,7 +154,7 @@ export default function SannaAfrika() {
       />
 
       <footer className="bg-stone-950 border-t border-white/5 py-8 text-center">
-        <p className="text-white/20 text-xs">&copy; {new Date().getFullYear()} {settings?.site_name || "Cape Town Wedding Films"}. All rights reserved.</p>
+        <p className="text-white/20 text-xs">&copy; {new Date().getFullYear()} {settings?.site_name || "Gustav Franke Cinematography"}. All rights reserved.</p>
       </footer>
     </div>
   );
