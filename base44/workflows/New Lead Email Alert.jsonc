@@ -1,0 +1,49 @@
+{
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "entity",
+      "events": [
+        "create"
+      ],
+      "entity_name": "Lead"
+    }
+  },
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "new_lead_email_alert",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "send_alert": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "sendLeadAlert",
+            "args": {
+              "lead": {
+                "name": "${ .trigger.data.name }",
+                "email": "${ .trigger.data.email }",
+                "phone": "${ .trigger.data.phone }",
+                "wedding_date": "${ .trigger.data.wedding_date }",
+                "venue": "${ .trigger.data.venue }",
+                "guest_count": "${ .trigger.data.guest_count }",
+                "funnel_variant": "${ .trigger.data.funnel_variant }",
+                "message": "${ .trigger.data.message }"
+              }
+            }
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "Send lead alert email",
+            "description": "Gmail alert to builder"
+          }
+        }
+      }
+    ]
+  },
+  "description": "Sends a Gmail alert email to the builder whenever a new lead is created",
+  "name": "New Lead Email Alert"
+}
