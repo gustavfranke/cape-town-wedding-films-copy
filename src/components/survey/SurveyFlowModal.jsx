@@ -205,6 +205,7 @@ export default function SurveyFlowModal({ isOpen, onClose, survey, contactForm, 
             autoPlay
             muted
             controls
+            onLoadedData={(e) => { e.target.currentTime = 34; }}
             className="w-full rounded-xl border border-white/10"
           />
         </div>
