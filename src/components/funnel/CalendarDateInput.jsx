@@ -29,12 +29,14 @@ export default function CalendarDateInput({ value, onChange, required, placehold
 
   useEffect(() => {
     if (!open) return;
+    const d = parseValue(value);
+    if (d) { setViewYear(d.getFullYear()); setViewMonth(d.getMonth()); }
     function handleClickOutside(e) {
       if (containerRef.current && !containerRef.current.contains(e.target)) setOpen(false);
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [open]);
+  }, [open, value]);
 
   const prevMonth = () => {
     if (viewMonth === 0) { setViewMonth(11); setViewYear(y => y - 1); }
@@ -63,7 +65,7 @@ export default function CalendarDateInput({ value, onChange, required, placehold
   return (
     <div ref={containerRef} className={`relative ${className}`}>
       <div
-        onClick={() => setOpen(o => !o)}
+        onClick={() => setOpen(true)}
         className="flex items-center gap-3 bg-white/5 border border-white/10 text-white rounded-xl h-12 px-4 cursor-pointer hover:border-amber-500/50 transition-colors"
       >
         <Calendar className="w-4 h-4 text-white/30 flex-shrink-0" />
