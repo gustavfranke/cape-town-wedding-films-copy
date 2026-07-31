@@ -100,7 +100,7 @@ export default function InternationalPhoneInput({ value, onChange, placeholder, 
         value={number}
         onChange={(e) => setNumber(e.target.value)}
         required={required}
-        placeholder={placeholder || "Phone number"}
+        placeholder={placeholder || "XXX XXX XXXX"}
         className="flex-1 h-12 px-3 bg-white/5 border border-white/10 rounded-r-xl text-white placeholder:text-white/20 focus:border-amber-500/50 focus:outline-none min-w-0"
       />
     </div>

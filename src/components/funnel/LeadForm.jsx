@@ -83,7 +83,7 @@ export default function LeadForm({ variant, settings, onSubmit, onClose, isOpen 
               value={formData.phone}
               onChange={(val) => setFormData({ ...formData, phone: val })}
               required
-              placeholder="XX XXX XXXX"
+              placeholder="XXX XXX XXXX"
               className="mt-2"
             />
           </div>
