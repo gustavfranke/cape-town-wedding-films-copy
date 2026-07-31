@@ -174,6 +174,9 @@ export default function SurveyFlowModal({ isOpen, onClose, survey, contactForm, 
       <p className="text-white/50 leading-relaxed">{confirmText}</p>
       {reactionVideo?.file_url && (
         <div className="mt-4">
+          <p className="text-white/50 text-sm font-light leading-relaxed mb-3">
+            While you wait, here's a couple watching their wedding film for the first time. This is the moment I make these for.
+          </p>
           <video
             src={reactionVideo.file_url}
             autoPlay
