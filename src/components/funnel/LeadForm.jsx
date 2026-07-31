@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { X, Loader2, ArrowRight } from "lucide-react";
 import InternationalPhoneInput from "@/components/funnel/InternationalPhoneInput";
+import CalendarDateInput from "@/components/funnel/CalendarDateInput";
 
 export default function LeadForm({ variant, settings, onSubmit, onClose, isOpen }) {
   const [formData, setFormData] = useState({
@@ -89,14 +90,11 @@ export default function LeadForm({ variant, settings, onSubmit, onClose, isOpen 
 
           <div>
             <Label className="text-white/60 text-xs uppercase tracking-wider">Wedding Date *</Label>
-            <Input
-              type="date"
-              name="wedding_date"
-              autoComplete="off"
+            <CalendarDateInput
               value={formData.wedding_date}
-              onChange={(e) => setFormData({ ...formData, wedding_date: e.target.value })}
+              onChange={(val) => setFormData({ ...formData, wedding_date: val })}
               required
-              className="mt-2 bg-white/5 border-white/10 text-white rounded-xl h-12 focus:border-amber-500/50"
+              className="mt-2"
             />
           </div>
 

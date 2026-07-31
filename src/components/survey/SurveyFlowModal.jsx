@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { X, ArrowRight, Loader2, Check } from "lucide-react";
 import InternationalPhoneInput from "@/components/funnel/InternationalPhoneInput";
+import CalendarDateInput from "@/components/funnel/CalendarDateInput";
 
 const DEFAULT_FIELDS = [
   { id: "f_name", field_key: "name", label: "Full Name", type: "text", required: true, order: 0 },
@@ -116,7 +117,7 @@ export default function SurveyFlowModal({ isOpen, onClose, survey, contactForm, 
         </div>
         {currentQ.type === "text" && <Input value={val} onChange={e => setVal(e.target.value)} className="bg-white/5 border-white/20 text-white rounded-xl" />}
         {currentQ.type === "textarea" && <Textarea value={val} onChange={e => setVal(e.target.value)} className="bg-white/5 border-white/20 text-white rounded-xl" rows={4} />}
-        {currentQ.type === "date" && <Input type="date" value={val} onChange={e => setVal(e.target.value)} className="bg-white/5 border-white/20 text-white rounded-xl" />}
+        {currentQ.type === "date" && <CalendarDateInput value={val} onChange={setVal} className="" />}
         {currentQ.type === "single_select" && (
           <div className="space-y-2">
             {(currentQ.options || []).map(opt => (
@@ -162,6 +163,14 @@ export default function SurveyFlowModal({ isOpen, onClose, survey, contactForm, 
                 onChange={val => setFormData({ ...formData, [f.field_key]: val })}
                 required={f.required}
                 placeholder={f.placeholder || "Phone number"}
+                className="mt-1.5"
+              />
+            ) : f.type === "date" ? (
+              <CalendarDateInput
+                value={formData[f.field_key] || ""}
+                onChange={val => setFormData({ ...formData, [f.field_key]: val })}
+                required={f.required}
+                placeholder={f.placeholder || "Select date"}
                 className="mt-1.5"
               />
             ) : f.type === "textarea" ? (
