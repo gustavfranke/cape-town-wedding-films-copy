@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { X, Loader2, ArrowRight } from "lucide-react";
+import InternationalPhoneInput from "@/components/funnel/InternationalPhoneInput";
 
 export default function LeadForm({ variant, settings, onSubmit, onClose, isOpen }) {
   const [formData, setFormData] = useState({
@@ -50,6 +51,8 @@ export default function LeadForm({ variant, settings, onSubmit, onClose, isOpen 
           <div>
             <Label className="text-white/60 text-xs uppercase tracking-wider">Full Name *</Label>
             <Input
+              name="full_name"
+              autoComplete="name"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               required
@@ -62,6 +65,8 @@ export default function LeadForm({ variant, settings, onSubmit, onClose, isOpen 
             <Label className="text-white/60 text-xs uppercase tracking-wider">Email Address *</Label>
             <Input
               type="email"
+              name="email"
+              autoComplete="email"
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               required
@@ -72,13 +77,13 @@ export default function LeadForm({ variant, settings, onSubmit, onClose, isOpen 
 
           <div>
             <Label className="text-white/60 text-xs uppercase tracking-wider">WhatsApp Number *</Label>
-            <Input
-              type="tel"
+            <InternationalPhoneInput
+              name="phone"
               value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+              onChange={(val) => setFormData({ ...formData, phone: val })}
               required
-              placeholder="+27 XX XXX XXXX"
-              className="mt-2 bg-white/5 border-white/10 text-white placeholder:text-white/20 rounded-xl h-12 focus:border-amber-500/50"
+              placeholder="XX XXX XXXX"
+              className="mt-2"
             />
           </div>
 
@@ -86,6 +91,8 @@ export default function LeadForm({ variant, settings, onSubmit, onClose, isOpen 
             <Label className="text-white/60 text-xs uppercase tracking-wider">Wedding Date *</Label>
             <Input
               type="date"
+              name="wedding_date"
+              autoComplete="off"
               value={formData.wedding_date}
               onChange={(e) => setFormData({ ...formData, wedding_date: e.target.value })}
               required

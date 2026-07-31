@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { X, ArrowRight, Loader2, Check } from "lucide-react";
+import InternationalPhoneInput from "@/components/funnel/InternationalPhoneInput";
 
 const DEFAULT_FIELDS = [
   { id: "f_name", field_key: "name", label: "Full Name", type: "text", required: true, order: 0 },
@@ -148,16 +149,29 @@ export default function SurveyFlowModal({ isOpen, onClose, survey, contactForm, 
         <h3 className="text-white text-lg font-light">Almost there, just a few details</h3>
         <p className="text-white/40 text-sm mt-1">We'll reach out within 24 hours.</p>
       </div>
-      {fields.map(f => (
-        <div key={f.id}>
-          <label className="text-white/60 text-xs uppercase tracking-wider">{f.label}{f.required && <span className="text-amber-400 ml-1">*</span>}</label>
-          {f.type === "textarea" ? (
-            <Textarea value={formData[f.field_key] || ""} onChange={e => setFormData({ ...formData, [f.field_key]: e.target.value })} placeholder={f.placeholder} className="mt-1.5 bg-white/5 border-white/20 text-white rounded-xl" rows={3} />
-          ) : (
-            <Input type={f.type || "text"} value={formData[f.field_key] || ""} onChange={e => setFormData({ ...formData, [f.field_key]: e.target.value })} placeholder={f.placeholder} className="mt-1.5 bg-white/5 border-white/20 text-white rounded-xl" />
-          )}
-        </div>
-      ))}
+      {fields.map(f => {
+        const autocompleteMap = { name: "name", email: "email", phone: "tel", wedding_date: "off", venue: "off", message: "off" };
+        const autocompleteVal = autocompleteMap[f.field_key] || "off";
+        return (
+          <div key={f.id}>
+            <label className="text-white/60 text-xs uppercase tracking-wider">{f.label}{f.required && <span className="text-amber-400 ml-1">*</span>}</label>
+            {f.type === "tel" ? (
+              <InternationalPhoneInput
+                name={f.field_key}
+                value={formData[f.field_key] || ""}
+                onChange={val => setFormData({ ...formData, [f.field_key]: val })}
+                required={f.required}
+                placeholder={f.placeholder || "Phone number"}
+                className="mt-1.5"
+              />
+            ) : f.type === "textarea" ? (
+              <Textarea name={f.field_key} autoComplete={autocompleteVal} value={formData[f.field_key] || ""} onChange={e => setFormData({ ...formData, [f.field_key]: e.target.value })} placeholder={f.placeholder} className="mt-1.5 bg-white/5 border-white/20 text-white rounded-xl" rows={3} />
+            ) : (
+              <Input type={f.type || "text"} name={f.field_key} autoComplete={autocompleteVal} value={formData[f.field_key] || ""} onChange={e => setFormData({ ...formData, [f.field_key]: e.target.value })} placeholder={f.placeholder} className="mt-1.5 bg-white/5 border-white/20 text-white rounded-xl" />
+            )}
+          </div>
+        );
+      })}
       <Button onClick={handleSubmit} disabled={submitting} className="w-full bg-amber-600 hover:bg-amber-700 text-white rounded-xl py-5">
         {submitting ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
         {contactForm?.submit_button_text || "Submit"}
