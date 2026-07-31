@@ -201,11 +201,11 @@ export default function SurveyFlowModal({ isOpen, onClose, survey, contactForm, 
             While you wait, here's a couple watching their wedding film for the first time. This is the moment I make these for.
           </p>
           <video
-            src={reactionVideo.file_url}
+            src={`${reactionVideo.file_url}#t=34`}
             autoPlay
             muted
             controls
-            onLoadedData={(e) => { e.target.currentTime = 34; }}
+            onLoadedMetadata={(e) => { e.target.currentTime = 34; }}
             className="w-full rounded-xl border border-white/10"
           />
         </div>
