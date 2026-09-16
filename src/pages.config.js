@@ -67,6 +67,7 @@ import Home from './pages/Home';
 import ThankYou from './pages/ThankYou';
 import SannaAfrika from './pages/SannaAfrika';
 import AdminIntegrations from './pages/AdminIntegrations';
+import CapeTown from './pages/CapeTown';
 import __Layout from './Layout.jsx';
 
 
@@ -91,6 +92,7 @@ export const PAGES = {
     "ThankYou": ThankYou,
     "SannaAfrika": SannaAfrika,
     "AdminIntegrations": AdminIntegrations,
+    "CapeTown": CapeTown,
 }
 
 export const pagesConfig = {
