@@ -100,7 +100,7 @@ const FAQS = [
   { q: "Do you film outside Cape Town?", a: "Yes. I film across the Winelands, the Overberg and further afield. For venues more than 50km from Cape Town, travel is added to your quote and I handle the planning." },
   { q: "How many weddings do you take on?", a: "Twenty a year. It's what lets me give every couple the time their film deserves, before the day and in the edit." },
   { q: "When will we receive our film?", a: "Within 6 to 12 weeks, depending on your collection. Express delivery in under two weeks is available if you need it sooner." },
-  { q: "Do we need to meet before the wedding?", a: "We'll always have a call first to talk through your day. If you'd prefer to meet in person in Cape Town, we can arrange that too." },
+  { q: "Do we need to meet before the wedding?", a: "No. We'll have a video call to talk through your day, the people in it and what matters most to you. Most couples find that's all they need." },
   { q: "How do we secure our date?", a: "A signed agreement and a 50% deposit. Once those are in place, your date is reserved for you." },
 ];
 
@@ -331,7 +331,7 @@ export default function CapeTown() {
             ))}
           </div>
           <p className="text-center text-white/40 text-sm font-light italic mt-12">
-            Collections from R50,000. Tell me about your day and I'll recommend what fits.
+            Collections from R38,000. Tell me about your day and I'll recommend what fits.
           </p>
         </div>
       </section>
@@ -377,7 +377,7 @@ export default function CapeTown() {
           <div className="mt-10">
             <CtaButton onClick={openForm} className="px-12 py-7 text-lg">Check Your Date</CtaButton>
           </div>
-          <p className="text-amber-400 text-sm mt-6 font-light tracking-wide">Collections from R50,000</p>
+          <p className="text-amber-400 text-sm mt-6 font-light tracking-wide">Collections from R38,000</p>
           <p className="text-white/30 text-sm mt-3 tracking-wider">Now booking 2027 and 2028</p>
         </motion.div>
       </section>
