@@ -17,18 +17,15 @@ const VARIANT_SLUG = "europe";
 const CALENDLY_URL = "https://calendly.com/gustavfrankecinematography";
 
 // --- Images -----------------------------------------------------------------
-// Swap these for the uploaded section images once they are in the media library.
+const FILES = "https://base44.app/api/apps/6a0cca42ae1aca31e6d27baa/files/mp/public/6a0cca42ae1aca31e6d27baa/";
 const IMG = {
-  heroPoster:
-    "https://base44.app/api/apps/6a0cca42ae1aca31e6d27baa/files/mp/public/6a0cca42ae1aca31e6d27baa/d305e2fb3_liv-sebs-main.png",
-  story:
-    "https://base44.app/api/apps/6a0cca42ae1aca31e6d27baa/files/mp/public/6a0cca42ae1aca31e6d27baa/d305e2fb3_liv-sebs-main.png",
-  approach:
-    "https://base44.app/api/apps/6a0cca42ae1aca31e6d27baa/files/mp/public/6a0cca42ae1aca31e6d27baa/bb2ca4f2c_JamesOliviaPositanoWedding.png",
-  filmmaker:
-    "https://base44.app/api/apps/6a0cca42ae1aca31e6d27baa/files/mp/public/6a0cca42ae1aca31e6d27baa/f5ee1ea96_03a-heart-behind-film.jpg",
-  finalCta:
-    "https://base44.app/api/apps/6a0cca42ae1aca31e6d27baa/files/mp/public/6a0cca42ae1aca31e6d27baa/4992a8e28_CeremonyClip-min.png",
+  heroPoster: `${FILES}d305e2fb3_liv-sebs-main.png`,
+  story: `${FILES}4277f51bb_sebslivcoupleshoot.jpg`, // Liv & Sebs, olive grove
+  approach: `${FILES}21ae9c10d_couplewalk_311.jpg`, // Kelly & Sina, Almond Valley
+  break: `${FILES}684dac4e8_confettilivandsebs_153_171.jpg`, // confetti exit
+  testimonials: `${FILES}3db3c0e57_AdiJanaLucerneWedding.png`, // Adi & Jana, Lucerne
+  filmmaker: `${FILES}f5ee1ea96_03a-heart-behind-film.jpg`,
+  finalCta: `${FILES}45f87306d_WideshotofLivSebs.png`, // long table, Finca Comasema
 };
 
 const VARIANT = {
@@ -383,9 +380,19 @@ export default function Europe() {
         </div>
       </section>
 
+      {/* Full-width break */}
+      <section className="relative h-[40vh] md:h-[60vh] overflow-hidden">
+        <img src={IMG.break} alt="Confetti as a couple leave their ceremony in Mallorca" className="w-full h-full object-cover" loading="lazy" />
+        <div className="absolute inset-0 bg-gradient-to-b from-stone-950/40 via-transparent to-stone-900" />
+      </section>
+
       {/* Testimonials */}
-      <section className="bg-stone-900 py-20 md:py-28">
-        <div className="max-w-3xl mx-auto px-6">
+      <section className="relative bg-stone-900 py-20 md:py-28 overflow-hidden">
+        <div className="absolute inset-0">
+          <img src={IMG.testimonials} alt="" className="w-full h-full object-cover opacity-[0.12]" loading="lazy" />
+          <div className="absolute inset-0 bg-gradient-to-b from-stone-900 via-stone-900/80 to-stone-950" />
+        </div>
+        <div className="relative max-w-3xl mx-auto px-6">
           <motion.div {...fadeUp} className="text-center mb-12">
             <Eyebrow>In Their Words</Eyebrow>
           </motion.div>
