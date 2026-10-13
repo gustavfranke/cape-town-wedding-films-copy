@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, ChevronDown, Minus, Check, Play, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, ChevronDown, Check, Play, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import HeroSection from "@/components/funnel/HeroSection";
@@ -83,13 +83,6 @@ const TESTIMONIALS = [
 ];
 
 // --- Copy -------------------------------------------------------------------
-const CONCERNS = [
-  "Booking someone you have never met, in a country you do not live in",
-  "A filmmaker who flies in the night before and has never seen the venue or the light",
-  "Being posed and directed all day, so the film shows a version of you that was staged",
-  "A highlight reel that could be anyone's wedding, cut to the same trending song",
-];
-
 const APPROACH = [
   "Based in Europe from May to October, not flying in for a single booking",
   "I shoot, direct and edit every European wedding myself",
@@ -284,32 +277,38 @@ export default function Europe() {
         </motion.div>
       </section>
 
-      {/* What couples worry about */}
+      {/* The filmmaker */}
       <section className="bg-stone-950 py-20 md:py-28">
-        <div className="max-w-4xl mx-auto px-6">
-          <motion.div {...fadeUp} className="text-center mb-14">
-            <Eyebrow>Before You Book</Eyebrow>
-            <h2 className="text-3xl md:text-5xl font-light text-white mt-4 leading-tight">
-              Hiring a filmmaker for a wedding abroad is a leap
-            </h2>
-            <p className="text-white/50 text-lg mt-6 max-w-2xl mx-auto font-light leading-relaxed">
-              You are choosing someone you have not met, for a day that happens once. These are the things
-              couples tell me they worry about.
-            </p>
+        <div className="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+          <motion.div {...fadeUp} className="order-2 md:order-1 aspect-square rounded-3xl overflow-hidden relative">
+            <img src={IMG.filmmaker} alt="Gustav Franke filming a wedding" className="w-full h-full object-cover" loading="lazy" />
           </motion.div>
-          <div className="grid gap-4">
-            {CONCERNS.map((c, i) => (
-              <motion.div
-                key={i}
-                {...fadeUp}
-                transition={{ delay: i * 0.08, duration: 0.5 }}
-                className="flex items-start gap-4 p-5 rounded-2xl bg-white/[0.03] border border-white/[0.06]"
-              >
-                <Minus className="w-5 h-5 text-white/30 mt-0.5 shrink-0" />
-                <span className="text-white/60 font-light">{c}</span>
-              </motion.div>
-            ))}
-          </div>
+          <motion.div {...fadeUp} className="order-1 md:order-2">
+            <Eyebrow>The Filmmaker</Eyebrow>
+            <h2 className="text-3xl md:text-4xl font-light text-white mt-4 leading-tight">
+              The Heart Behind Your Film
+            </h2>
+            <p className="text-white/50 mt-6 font-light leading-relaxed">
+              I'm Gustav. I've filmed over 100 weddings, from Finca Comasema and Almond Valley in Mallorca to
+              Positano and Lucerne. My background is in documentary and cinema, and I bring that to every
+              wedding: patience, a quiet presence, and an eye for the moments nobody planned.
+            </p>
+            <div className="mt-8 flex gap-10">
+              {[["100+", "Weddings"], ["7+", "Years"], ["20", "Per Year"]].map(([v, l]) => (
+                <div key={l}>
+                  <div className="text-3xl font-light text-amber-400">{v}</div>
+                  <div className="text-xs text-white/30 uppercase tracking-wider mt-1">{l}</div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-10 pl-5 border-l-2 border-amber-500">
+              <p className="text-white/70 font-light italic leading-relaxed text-sm md:text-base">
+                "I care about people and the stories they're living through, more than I care about being
+                behind a camera. I hope your film lets you relive the day, over and over again."
+              </p>
+              <p className="mt-3 text-amber-400 text-sm font-medium">Gustav Franke</p>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -323,8 +322,8 @@ export default function Europe() {
               I live in Europe for the season, and I film every wedding myself
             </h2>
             <p className="text-white/50 text-base mt-6 font-light leading-relaxed">
-              From May to October I am based in Europe. I am not flying in for one booking, and your film is
-              not handed to a second shooter or an outside editor.
+              Most couples book me without ever meeting me in person. These are the things that make that an
+              easy decision.
             </p>
             <div className="mt-8 space-y-4">
               {APPROACH.map((b) => (
@@ -435,41 +434,6 @@ export default function Europe() {
               <ChevronRight className="w-4 h-4" />
             </button>
           </div>
-        </div>
-      </section>
-
-      {/* The filmmaker */}
-      <section className="bg-stone-950 py-20 md:py-28">
-        <div className="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-          <motion.div {...fadeUp} className="order-2 md:order-1 aspect-square rounded-3xl overflow-hidden relative">
-            <img src={IMG.filmmaker} alt="Gustav Franke filming a wedding" className="w-full h-full object-cover" loading="lazy" />
-          </motion.div>
-          <motion.div {...fadeUp} className="order-1 md:order-2">
-            <Eyebrow>The Filmmaker</Eyebrow>
-            <h2 className="text-3xl md:text-4xl font-light text-white mt-4 leading-tight">
-              The Heart Behind Your Film
-            </h2>
-            <p className="text-white/50 mt-6 font-light leading-relaxed">
-              I'm Gustav. I've filmed over 100 weddings, from Finca Comasema and Almond Valley in Mallorca to
-              Positano and Lucerne. My background is in documentary and cinema, and I bring that to every
-              wedding: patience, a quiet presence, and an eye for the moments nobody planned.
-            </p>
-            <div className="mt-8 flex gap-10">
-              {[["100+", "Weddings"], ["7+", "Years"], ["20", "Per Year"]].map(([v, l]) => (
-                <div key={l}>
-                  <div className="text-3xl font-light text-amber-400">{v}</div>
-                  <div className="text-xs text-white/30 uppercase tracking-wider mt-1">{l}</div>
-                </div>
-              ))}
-            </div>
-            <div className="mt-10 pl-5 border-l-2 border-amber-500">
-              <p className="text-white/70 font-light italic leading-relaxed text-sm md:text-base">
-                "I care about people and the stories they're living through, more than I care about being
-                behind a camera. I hope your film lets you relive the day, over and over again."
-              </p>
-              <p className="mt-3 text-amber-400 text-sm font-medium">Gustav Franke</p>
-            </div>
-          </motion.div>
         </div>
       </section>
 
