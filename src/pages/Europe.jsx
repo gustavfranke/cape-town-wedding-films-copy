@@ -1,0 +1,578 @@
+import React, { useState, useEffect, useCallback } from "react";
+import { base44 } from "@/api/base44Client";
+import { useQuery } from "@tanstack/react-query";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowRight, ChevronDown, Minus, Check, Play, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+import HeroSection from "@/components/funnel/HeroSection";
+import StickyMobileCTA from "@/components/funnel/StickyMobileCTA";
+import SurveyFlowModal from "@/components/survey/SurveyFlowModal";
+
+// Europe / Mallorca landing page. Self-contained so the Cape Town and
+// international pages are untouched.
+
+const VARIANT_ID = "6ace692cfa2ebd9a5586953a";
+const VARIANT_SLUG = "europe";
+const CALENDLY_URL = "https://calendly.com/gustavfrankecinematography";
+
+// --- Images -----------------------------------------------------------------
+// Swap these for the uploaded section images once they are in the media library.
+const IMG = {
+  heroPoster:
+    "https://base44.app/api/apps/6a0cca42ae1aca31e6d27baa/files/mp/public/6a0cca42ae1aca31e6d27baa/d305e2fb3_liv-sebs-main.png",
+  story:
+    "https://base44.app/api/apps/6a0cca42ae1aca31e6d27baa/files/mp/public/6a0cca42ae1aca31e6d27baa/d305e2fb3_liv-sebs-main.png",
+  approach:
+    "https://base44.app/api/apps/6a0cca42ae1aca31e6d27baa/files/mp/public/6a0cca42ae1aca31e6d27baa/bb2ca4f2c_JamesOliviaPositanoWedding.png",
+  filmmaker:
+    "https://base44.app/api/apps/6a0cca42ae1aca31e6d27baa/files/mp/public/6a0cca42ae1aca31e6d27baa/f5ee1ea96_03a-heart-behind-film.jpg",
+  finalCta:
+    "https://base44.app/api/apps/6a0cca42ae1aca31e6d27baa/files/mp/public/6a0cca42ae1aca31e6d27baa/4992a8e28_CeremonyClip-min.png",
+};
+
+const VARIANT = {
+  id: VARIANT_ID,
+  slug: VARIANT_SLUG,
+  hero_headline: "Wedding Films in Mallorca and Across Europe",
+  hero_subheadline:
+    "I'm based in Europe from May to October. I shoot, direct and edit every European wedding myself.",
+  hero_description:
+    "I stay out of the way on the day. No posing, no directing, so the film gives you back the day as it actually happened.",
+  hero_cta_text: "Check Your Date",
+  hero_supporting_line: "Now booking the 2027 European season",
+  hero_video_url:
+    "https://base44.app/api/apps/6a0cca42ae1aca31e6d27baa/files/mp/public/6a0cca42ae1aca31e6d27baa/43673d441_HeroFilmEurope.mp4",
+  hero_image_url: IMG.heroPoster,
+};
+
+// --- Films ------------------------------------------------------------------
+// Posters come straight from YouTube so no uploads are needed.
+const FILMS = [
+  { names: "Liv & Sebs", venue: "Finca Comasema, Mallorca", id: "6mLl4wLbAcU" },
+  { names: "Kelly & Sina", venue: "Almond Valley, Mallorca", id: "fnF_G6vxpN4" },
+  { names: "Jenny & Daniel", venue: "Mallorca", id: "u3pG68OGduE" },
+  { names: "Adi & Jana", venue: "Lucerne, Switzerland", id: "1BgGHG3vpy4" },
+  { names: "James & Olivia", venue: "Positano, Italy", id: "VSc1CBQYkJY" },
+];
+
+const poster = (id) => `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
+const embed = (id) =>
+  `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
+
+// --- Testimonials -----------------------------------------------------------
+const LEAD_QUOTE = {
+  text: "Gustav was incredible at our wedding and made us content that he really captured absolutely everything we wanted and we will cherish forever. His attention to detail, his artistic vision and hard work stood out in all his content he delivered for us.",
+  names: "Liv & Sebs",
+  venue: "Finca Comasema, Mallorca",
+};
+
+const TESTIMONIALS = [
+  {
+    text: "Gustav was so keen to understand our story as a couple and how we saw our day unfolding. The way he has told the story of our day is so seamless. From the chaos of our nieces and nephews, to the intimate moments together, the footage he captured will be something we cherish for the rest of our lives.",
+    names: "Tegan & Tom",
+    venue: "Siena, Italy",
+  },
+  {
+    text: "Not sure where to start with this review, everything exceeded our expectations. The footage Gustav captured was beautiful, and he captured the atmosphere of the day perfectly.",
+    names: "James & Olivia",
+    venue: "Positano, Italy",
+  },
+  {
+    text: "He captured all of the most important moments of our wedding so beautifully, without us even noticing him doing it. We felt like we had another friend there the entire time. The videos look like a feature production film.",
+    names: "Adi & Jana",
+    venue: "Lucerne, Switzerland",
+  },
+];
+
+// --- Copy -------------------------------------------------------------------
+const CONCERNS = [
+  "Booking someone you have never met, in a country you do not live in",
+  "A filmmaker who flies in the night before and has never seen the venue or the light",
+  "Being posed and directed all day, so the film shows a version of you that was staged",
+  "A highlight reel that could be anyone's wedding, cut to the same trending song",
+];
+
+const APPROACH = [
+  "Based in Europe from May to October, not flying in for a single booking",
+  "I shoot, direct and edit every European wedding myself",
+  "Unobtrusive on the day. Rarely posed, never staged",
+  "Natural colour, true to how your day actually looked",
+  "Music chosen to carry your story, not follow a trend",
+];
+
+const INCLUDED = [
+  "All travel across Europe included in your collection price",
+  "A director's eye on every frame, not a camera left running",
+  "Natural colour grading and careful sound design",
+  "Licensed music, cleared for sharing online",
+  "Your vows and speeches kept in full, not cut to seconds",
+  "Your films delivered through a private link to watch, download and share",
+];
+
+const PROCESS = [
+  { step: "01", title: "Reach Out", description: "Share your date and venue. I reply within 24 hours." },
+  { step: "02", title: "A Call Together", description: "We talk through your day, the people who matter, and how you want to feel watching it back." },
+  { step: "03", title: "Your Wedding Day", description: "I work quietly in the background, catching the vows, the speeches and the dance floor as they happen." },
+  { step: "04", title: "Your Film, Delivered", description: "Your films arrive within 8 to 12 weeks. Express delivery under two weeks is available." },
+];
+
+const FAQS = [
+  { q: "Where in Europe do you film?", a: "Most of my European weddings are in Mallorca, and I have filmed in Italy and Switzerland. I am based in Europe from May to October, so I am already there rather than flying in for one booking." },
+  { q: "Is travel included?", a: "Yes. All travel across Europe is included in your collection price. There is nothing added afterwards." },
+  { q: "Who actually films our wedding?", a: "I do. For European weddings I shoot, direct and edit every film myself. Nothing is handed to a second shooter or an outside editor." },
+  { q: "We have not met you. How does that work?", a: "We have a video call before you book, and another closer to the day to talk through the schedule. Most couples book me having only ever met me on a screen, and the films are what they judge me on." },
+  { q: "When will we receive our film?", a: "Within 8 to 12 weeks, depending on your collection. Express delivery in under two weeks is available as an add-on." },
+  { q: "How do we secure our date?", a: "A signed agreement and a 50% deposit. Once those are in place, your date is reserved for you." },
+];
+
+const BUDGET_OPTIONS = ["Under €4,000", "€4,000 to €5,500", "€5,500 to €7,000", "€7,000+"];
+const EUROPE_SURVEY = {
+  questions: [
+    {
+      field_key: "budget",
+      question: "What have you set aside for your wedding film?",
+      helper_text: "It helps me recommend the right collection for your day.",
+      type: "single_select",
+      options: BUDGET_OPTIONS,
+      required: true,
+      order: 0,
+    },
+  ],
+  tag_rules: BUDGET_OPTIONS.map((opt) => ({
+    conditions: [{ field: "budget", operator: "equals", value: opt }],
+    tags_to_add: [`Budget: ${opt}`, "Europe lead"],
+  })),
+  confirmation_headline: "Thank you, I'll be in touch soon",
+  confirmation_text:
+    "I'll check my calendar for your date and reply within 24 hours. If you'd like to talk sooner, book a call below.",
+  confirmation_button_text: "Book a Call",
+  confirmation_button_url: CALENDLY_URL,
+};
+
+const fadeUp = {
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true },
+  transition: { duration: 0.7 },
+};
+
+function Eyebrow({ children }) {
+  return <span className="text-amber-500 text-xs uppercase tracking-[0.3em] font-medium">{children}</span>;
+}
+
+function CtaButton({ onClick, children, className = "" }) {
+  return (
+    <Button
+      onClick={onClick}
+      size="lg"
+      className={`bg-amber-600 hover:bg-amber-700 text-white px-10 py-6 text-base rounded-full font-medium shadow-2xl shadow-amber-900/30 transition-all duration-300 hover:scale-105 ${className}`}
+    >
+      {children} <ArrowRight className="w-4 h-4 ml-2" />
+    </Button>
+  );
+}
+
+function FilmLightbox({ film, onClose }) {
+  useEffect(() => {
+    const onKey = (e) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <button
+        onClick={onClose}
+        aria-label="Close film"
+        className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white"
+      >
+        <X className="w-5 h-5" />
+      </button>
+      <div className="w-full max-w-5xl" onClick={(e) => e.stopPropagation()}>
+        <div className="aspect-video w-full rounded-2xl overflow-hidden bg-black">
+          <iframe
+            src={embed(film.id)}
+            title={`${film.names} wedding film`}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="w-full h-full"
+          />
+        </div>
+        <div className="mt-4 text-center">
+          <div className="text-white font-light">{film.names}</div>
+          <div className="text-white/40 text-sm">{film.venue}</div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+function Quote({ text, names, venue, className = "" }) {
+  return (
+    <figure className={className}>
+      <blockquote className="text-white/80 font-light italic leading-relaxed text-lg md:text-xl">
+        {text}
+      </blockquote>
+      <figcaption className="mt-5">
+        <div className="text-white text-sm tracking-wide">{names}</div>
+        <div className="text-amber-400/80 text-xs uppercase tracking-[0.2em] mt-1">{venue}</div>
+      </figcaption>
+    </figure>
+  );
+}
+
+export default function Europe() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [openFaq, setOpenFaq] = useState(null);
+  const [activeFilm, setActiveFilm] = useState(null);
+  const [slide, setSlide] = useState(0);
+
+  const { data: contactFormArr } = useQuery({
+    queryKey: ["activeContactForm", "default"],
+    queryFn: () => base44.entities.ContactForm.filter({ is_default: true }),
+    initialData: [],
+  });
+  const contactForm = contactFormArr?.[0] || null;
+
+  const trackEvent = useCallback((type) => {
+    base44.entities.AnalyticsEvent.create({
+      event_type: type,
+      variant: VARIANT_SLUG,
+      device_type: window.innerWidth < 768 ? "mobile" : window.innerWidth < 1024 ? "tablet" : "desktop",
+    }).catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    document.title = "Mallorca & Europe Wedding Films | Gustav Franke Cinematography";
+    trackEvent("page_view");
+  }, [trackEvent]);
+
+  const openForm = useCallback(() => {
+    trackEvent("cta_click");
+    setModalOpen(true);
+  }, [trackEvent]);
+
+  const openFilm = useCallback(
+    (film) => {
+      trackEvent("film_play");
+      setActiveFilm(film);
+    },
+    [trackEvent]
+  );
+
+  return (
+    <div className="bg-stone-950 min-h-screen">
+      <HeroSection variant={VARIANT} onCtaClick={openForm} />
+
+      {/* Lead testimonial, kept high on the page */}
+      <section className="relative bg-stone-900 py-20 md:py-28 overflow-hidden">
+        <div className="absolute inset-0">
+          <img src={IMG.story} alt="" className="w-full h-full object-cover opacity-20" loading="lazy" />
+          <div className="absolute inset-0 bg-gradient-to-b from-stone-950 via-stone-950/70 to-stone-950" />
+        </div>
+        <motion.div {...fadeUp} className="relative max-w-3xl mx-auto px-6 text-center">
+          <Eyebrow>Mallorca</Eyebrow>
+          <Quote {...LEAD_QUOTE} className="mt-8" />
+        </motion.div>
+      </section>
+
+      {/* What couples worry about */}
+      <section className="bg-stone-950 py-20 md:py-28">
+        <div className="max-w-4xl mx-auto px-6">
+          <motion.div {...fadeUp} className="text-center mb-14">
+            <Eyebrow>Before You Book</Eyebrow>
+            <h2 className="text-3xl md:text-5xl font-light text-white mt-4 leading-tight">
+              Hiring a filmmaker for a wedding abroad is a leap
+            </h2>
+            <p className="text-white/50 text-lg mt-6 max-w-2xl mx-auto font-light leading-relaxed">
+              You are choosing someone you have not met, for a day that happens once. These are the things
+              couples tell me they worry about.
+            </p>
+          </motion.div>
+          <div className="grid gap-4">
+            {CONCERNS.map((c, i) => (
+              <motion.div
+                key={i}
+                {...fadeUp}
+                transition={{ delay: i * 0.08, duration: 0.5 }}
+                className="flex items-start gap-4 p-5 rounded-2xl bg-white/[0.03] border border-white/[0.06]"
+              >
+                <Minus className="w-5 h-5 text-white/30 mt-0.5 shrink-0" />
+                <span className="text-white/60 font-light">{c}</span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* My answer */}
+      <section className="relative bg-stone-900 py-20 md:py-28 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-amber-900/10 via-transparent to-transparent" />
+        <div className="relative max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-14 items-center">
+          <motion.div {...fadeUp}>
+            <Eyebrow>How I Work</Eyebrow>
+            <h2 className="text-3xl md:text-4xl font-light text-white mt-4 leading-tight">
+              I live in Europe for the season, and I film every wedding myself
+            </h2>
+            <p className="text-white/50 text-base mt-6 font-light leading-relaxed">
+              From May to October I am based in Europe. I am not flying in for one booking, and your film is
+              not handed to a second shooter or an outside editor.
+            </p>
+            <div className="mt-8 space-y-4">
+              {APPROACH.map((b) => (
+                <div key={b} className="flex items-start gap-3">
+                  <div className="w-6 h-6 rounded-full bg-amber-500/20 flex items-center justify-center shrink-0 mt-0.5">
+                    <Check className="w-3.5 h-3.5 text-amber-400" />
+                  </div>
+                  <span className="text-white/70 font-light">{b}</span>
+                </div>
+              ))}
+            </div>
+            <div className="mt-10">
+              <CtaButton onClick={openForm}>Check Your Date</CtaButton>
+            </div>
+          </motion.div>
+          <motion.div {...fadeUp} className="aspect-[4/5] rounded-3xl overflow-hidden relative">
+            <img src={IMG.approach} alt="A wedding in Europe" className="w-full h-full object-cover" loading="lazy" />
+            <div className="absolute inset-0 bg-gradient-to-t from-stone-900/60 via-transparent to-transparent" />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Films */}
+      <section className="bg-stone-950 py-20 md:py-28">
+        <div className="max-w-6xl mx-auto px-6">
+          <motion.div {...fadeUp} className="text-center mb-14">
+            <Eyebrow>The Films</Eyebrow>
+            <h2 className="text-3xl md:text-4xl font-light text-white mt-4">Watch a Few</h2>
+          </motion.div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {FILMS.map((f) => (
+              <button key={f.id} onClick={() => openFilm(f)} className="group block text-left">
+                <div className="aspect-video rounded-2xl overflow-hidden relative bg-stone-900">
+                  <img
+                    src={poster(f.id)}
+                    alt={`${f.names} wedding film`}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                    <div className="w-14 h-14 rounded-full bg-white/15 backdrop-blur-md border border-white/30 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+                      <Play className="w-5 h-5 text-white fill-white ml-1" />
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-4">
+                  <div className="text-white font-light">{f.names}</div>
+                  <div className="text-white/40 text-sm">{f.venue}</div>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="bg-stone-900 py-20 md:py-28">
+        <div className="max-w-3xl mx-auto px-6">
+          <motion.div {...fadeUp} className="text-center mb-12">
+            <Eyebrow>In Their Words</Eyebrow>
+          </motion.div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={slide}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.4 }}
+            >
+              <Quote {...TESTIMONIALS[slide]} className="text-center" />
+            </motion.div>
+          </AnimatePresence>
+          <div className="flex items-center justify-center gap-4 mt-10">
+            <button
+              onClick={() => setSlide((s) => (s - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)}
+              aria-label="Previous testimonial"
+              className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:border-white/30 transition-colors"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <div className="flex gap-2">
+              {TESTIMONIALS.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setSlide(i)}
+                  aria-label={`Testimonial ${i + 1}`}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    i === slide ? "w-6 bg-amber-500" : "w-1.5 bg-white/20"
+                  }`}
+                />
+              ))}
+            </div>
+            <button
+              onClick={() => setSlide((s) => (s + 1) % TESTIMONIALS.length)}
+              aria-label="Next testimonial"
+              className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:border-white/30 transition-colors"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* The filmmaker */}
+      <section className="bg-stone-950 py-20 md:py-28">
+        <div className="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+          <motion.div {...fadeUp} className="order-2 md:order-1 aspect-square rounded-3xl overflow-hidden relative">
+            <img src={IMG.filmmaker} alt="Gustav Franke filming a wedding" className="w-full h-full object-cover" loading="lazy" />
+          </motion.div>
+          <motion.div {...fadeUp} className="order-1 md:order-2">
+            <Eyebrow>The Filmmaker</Eyebrow>
+            <h2 className="text-3xl md:text-4xl font-light text-white mt-4 leading-tight">
+              The Heart Behind Your Film
+            </h2>
+            <p className="text-white/50 mt-6 font-light leading-relaxed">
+              I'm Gustav. I've filmed over 100 weddings, from Finca Comasema and Almond Valley in Mallorca to
+              Positano and Lucerne. My background is in documentary and cinema, and I bring that to every
+              wedding: patience, a quiet presence, and an eye for the moments nobody planned.
+            </p>
+            <div className="mt-8 flex gap-10">
+              {[["100+", "Weddings"], ["7+", "Years"], ["20", "Per Year"]].map(([v, l]) => (
+                <div key={l}>
+                  <div className="text-3xl font-light text-amber-400">{v}</div>
+                  <div className="text-xs text-white/30 uppercase tracking-wider mt-1">{l}</div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-10 pl-5 border-l-2 border-amber-500">
+              <p className="text-white/70 font-light italic leading-relaxed text-sm md:text-base">
+                "I care about people and the stories they're living through, more than I care about being
+                behind a camera. I hope your film lets you relive the day, over and over again."
+              </p>
+              <p className="mt-3 text-amber-400 text-sm font-medium">Gustav Franke</p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Included */}
+      <section className="bg-stone-900 py-20 md:py-28 relative overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-amber-600/5 blur-[120px]" />
+        <div className="relative max-w-4xl mx-auto px-6">
+          <motion.div {...fadeUp} className="text-center mb-14">
+            <Eyebrow>Every Collection</Eyebrow>
+            <h2 className="text-3xl md:text-5xl font-light text-white mt-4 leading-tight">What's Included</h2>
+          </motion.div>
+          <div className="grid md:grid-cols-2 gap-4">
+            {INCLUDED.map((item) => (
+              <div key={item} className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.06] flex items-start gap-4">
+                <div className="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center shrink-0">
+                  <Check className="w-4 h-4 text-amber-400" />
+                </div>
+                <span className="text-white font-light leading-relaxed">{item}</span>
+              </div>
+            ))}
+          </div>
+          <p className="text-center text-white/40 text-sm font-light italic mt-12">
+            Collections from €4,000, travel included. Tell me about your day and I'll recommend what fits.
+          </p>
+        </div>
+      </section>
+
+      {/* Process */}
+      <section className="bg-stone-950 py-20 md:py-28">
+        <div className="max-w-5xl mx-auto px-6">
+          <motion.div {...fadeUp} className="text-center mb-14">
+            <Eyebrow>How To Book Me</Eyebrow>
+            <h2 className="text-3xl md:text-4xl font-light text-white mt-4">Securing Your Date</h2>
+          </motion.div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {PROCESS.map((p) => (
+              <motion.div key={p.step} {...fadeUp} className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.06]">
+                <div className="text-amber-500/60 text-sm tracking-widest">{p.step}</div>
+                <div className="text-white font-light mt-3">{p.title}</div>
+                <p className="text-white/45 text-sm font-light leading-relaxed mt-2">{p.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="bg-stone-900 py-20 md:py-28">
+        <div className="max-w-3xl mx-auto px-6">
+          <motion.div {...fadeUp} className="text-center mb-14">
+            <Eyebrow>Questions</Eyebrow>
+            <h2 className="text-3xl md:text-4xl font-light text-white mt-4">Before You Enquire</h2>
+          </motion.div>
+          <div className="space-y-3">
+            {FAQS.map((f, i) => (
+              <div key={f.q} className="rounded-2xl bg-white/[0.03] border border-white/[0.06] overflow-hidden">
+                <button onClick={() => setOpenFaq(openFaq === i ? null : i)} className="w-full flex items-center justify-between p-6 text-left">
+                  <span className="text-white font-light pr-4">{f.q}</span>
+                  <ChevronDown className={`w-5 h-5 text-white/30 shrink-0 transition-transform duration-300 ${openFaq === i ? "rotate-180" : ""}`} />
+                </button>
+                {openFaq === i && (
+                  <div className="px-6 pb-6 text-white/50 font-light leading-relaxed text-sm">{f.a}</div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="relative bg-stone-950 py-24 md:py-36 overflow-hidden">
+        <div className="absolute inset-0">
+          <img src={IMG.finalCta} alt="" className="w-full h-full object-cover opacity-10" loading="lazy" />
+        </div>
+        <motion.div {...fadeUp} className="relative max-w-3xl mx-auto px-6 text-center">
+          <h2 className="text-3xl md:text-5xl font-light text-white leading-tight">Let's Talk About Your Day</h2>
+          <p className="text-white/50 text-lg mt-6 font-light leading-relaxed max-w-xl mx-auto">
+            I take on twenty weddings a year across both continents. If your date is still open, I'd love to
+            hear about it.
+          </p>
+          <div className="mt-10">
+            <CtaButton onClick={openForm} className="px-12 py-7 text-lg">Check Your Date</CtaButton>
+          </div>
+          <p className="text-amber-400 text-sm mt-6 font-light tracking-wide">Collections from €4,000, travel included</p>
+          <p className="text-white/30 text-sm mt-3 tracking-wider">Now booking the 2027 European season</p>
+        </motion.div>
+      </section>
+
+      <StickyMobileCTA variant={VARIANT} onCtaClick={openForm} />
+
+      <AnimatePresence>
+        {activeFilm && <FilmLightbox film={activeFilm} onClose={() => setActiveFilm(null)} />}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {modalOpen && (
+          <SurveyFlowModal
+            isOpen={modalOpen}
+            onClose={() => setModalOpen(false)}
+            survey={EUROPE_SURVEY}
+            contactForm={contactForm}
+            variantId={VARIANT_ID}
+            variantSlug={VARIANT_SLUG}
+          />
+        )}
+      </AnimatePresence>
+
+      <footer className="bg-stone-950 border-t border-white/5 py-8 text-center">
+        <p className="text-white/20 text-xs">&copy; {new Date().getFullYear()} Gustav Franke Cinematography. All rights reserved.</p>
+      </footer>
+    </div>
+  );
+}
