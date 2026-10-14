@@ -336,7 +336,7 @@ export default function Europe() {
               {[["100+", "Weddings"], ["7+", "Years"], ["20", "Per Year"]].map(([v, l]) => (
                 <div key={l}>
                   <div className="text-3xl font-light text-amber-400">{v}</div>
-                  <div className="text-xs text-white/30 uppercase tracking-wider mt-1">{l}</div>
+                  <div className="text-[11px] text-white/60 uppercase tracking-[0.15em] mt-2">{l}</div>
                 </div>
               ))}
             </div>
@@ -589,7 +589,7 @@ export default function Europe() {
             <CtaButton onClick={openForm} className="px-12 py-7 text-lg">Check 2027 Availability</CtaButton>
           </div>
           <p className="text-amber-400 text-sm mt-6 font-light tracking-wide">Collections from €4,500, travel and accommodation included</p>
-          <p className="text-white/30 text-sm mt-3 tracking-wider">Now booking the 2027 European season</p>
+          <p className="text-white/55 text-sm mt-3 tracking-wider">Now booking the 2027 European season</p>
         </motion.div>
       </section>
 
@@ -614,7 +614,7 @@ export default function Europe() {
       </AnimatePresence>
 
       <footer className="bg-stone-950 border-t border-white/5 py-8 text-center">
-        <p className="text-white/20 text-xs">&copy; {new Date().getFullYear()} Gustav Franke Cinematography. All rights reserved.</p>
+        <p className="text-white/40 text-xs">&copy; {new Date().getFullYear()} Gustav Franke Cinematography. All rights reserved.</p>
       </footer>
     </div>
   );
