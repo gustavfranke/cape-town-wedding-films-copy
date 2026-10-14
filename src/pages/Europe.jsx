@@ -160,7 +160,7 @@ const EUROPE_SURVEY = {
     {
       field_key: "budget",
       question: "What have you set aside for your wedding film?",
-      helper_text: "It helps me recommend the right collection for your day.",
+      helper_text: "This helps me match your celebration with the right collection.",
       type: "single_select",
       options: BUDGET_OPTIONS,
       required: true,
@@ -607,6 +607,7 @@ export default function Europe() {
             contactForm={contactForm}
             variantId={VARIANT_ID}
             variantSlug={VARIANT_SLUG}
+            responseNote="I personally review every inquiry and will be in touch within 24 hours."
           />
         )}
       </AnimatePresence>
