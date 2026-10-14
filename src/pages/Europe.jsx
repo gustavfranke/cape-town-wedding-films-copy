@@ -146,10 +146,10 @@ const PROCESS = [
 ];
 
 const FAQS = [
-  { q: "Where in Europe do you film?", a: "Most of my European weddings are in Mallorca, and I've also filmed in Italy, Greece, Switzerland and France. I'm based in Europe from May to October, so I'm already there rather than flying in for one booking." },
+  { q: "Where in Europe do you film?", a: "I travel across Europe for destination weddings, with a strong focus on Mallorca, Italy, Greece, Switzerland and France. Because I handle international logistics regularly, all travel and accommodation expenses are completely built into your collection price, meaning zero hidden fees or surprise invoices for you." },
   { q: "Is travel included?", a: "Yes. All travel across Europe is included in your collection price. There's nothing added afterwards." },
   { q: "Who actually films our wedding?", a: "I do. For European weddings I shoot, direct and edit every film myself. Nothing is handed to a second shooter or an outside editor." },
-  { q: "We haven't met you. How does that work?", a: "We have a video call before you book, and another closer to the day to talk through the schedule. Most couples book me having only ever met me on a screen, and the films are what they judge me on." },
+  { q: "We haven't met you. How does that work?", a: "We set up a video call before you book to connect and chat through your vision, followed by a detailed planning call closer to the day. Most of my destination couples book me via video call, feeling completely at ease knowing their film is in dedicated hands." },
   { q: "When will we receive our film?", a: "Within 8 to 12 weeks, depending on your collection. Express delivery in under two weeks is available as an add-on." },
   { q: "How do we secure our date?", a: "A signed agreement and a 50% deposit. Once those are in place, your date is reserved for you." },
 ];
