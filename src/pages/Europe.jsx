@@ -91,13 +91,45 @@ const APPROACH = [
   "Music chosen to carry your story, not follow a trend",
 ];
 
-const INCLUDED = [
-  "All travel across Europe included in your collection price",
-  "A director's eye on every frame, not a camera left running",
-  "Natural colour grading and careful sound design",
-  "Licensed music, cleared for sharing online",
-  "Your vows and speeches kept in full, not cut to seconds",
-  "Your films delivered through a private link to watch, download and share",
+const COLLECTIONS = [
+  {
+    name: "Collection I",
+    price: "€4,500",
+    items: [
+      "8 hours of coverage",
+      "One cinematographer",
+      "Highlight film, 3 to 5 minutes",
+      "Digital download, 6 month access",
+    ],
+  },
+  {
+    name: "Collection II",
+    price: "€6,000",
+    featured: true,
+    items: [
+      "10 hours of coverage",
+      "Two cinematographers",
+      "Teaser trailer within 7 days",
+      "Highlight film, 4 to 6 minutes",
+      "Full edits of ceremony and speeches",
+      "Delivered in 4K",
+    ],
+  },
+  {
+    name: "Collection III",
+    price: "€7,500",
+    items: [
+      "10 hours of coverage",
+      "Two cinematographers",
+      "Teaser trailer within 72 hours",
+      "Highlight film, 6 to 8 minutes",
+      "Feature film, 18 to 20 minutes",
+      "Full edits of ceremony and speeches",
+      "First dance edit",
+      "Drone coverage",
+      "Delivered in 4K",
+    ],
+  },
 ];
 
 const PROCESS = [
@@ -438,27 +470,58 @@ export default function Europe() {
         </div>
       </section>
 
-      {/* Included */}
+      {/* Collections */}
       <section className="bg-stone-900 py-20 md:py-28 relative overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-amber-600/5 blur-[120px]" />
-        <div className="relative max-w-4xl mx-auto px-6">
+        <div className="relative max-w-6xl mx-auto px-6">
           <motion.div {...fadeUp} className="text-center mb-14">
-            <Eyebrow>Every Collection</Eyebrow>
-            <h2 className="text-3xl md:text-5xl font-light text-white mt-4 leading-tight">What's Included</h2>
+            <Eyebrow>Collections</Eyebrow>
+            <h2 className="text-3xl md:text-5xl font-light text-white mt-4 leading-tight">
+              Every price is final
+            </h2>
+            <p className="text-white/50 text-lg mt-6 max-w-2xl mx-auto font-light leading-relaxed">
+              Travel across Europe is fully included. No VAT added, nothing invoiced afterwards.
+            </p>
           </motion.div>
-          <div className="grid md:grid-cols-2 gap-4">
-            {INCLUDED.map((item) => (
-              <div key={item} className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.06] flex items-start gap-4">
-                <div className="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center shrink-0">
-                  <Check className="w-4 h-4 text-amber-400" />
-                </div>
-                <span className="text-white font-light leading-relaxed">{item}</span>
-              </div>
+
+          <div className="grid md:grid-cols-3 gap-6 items-start">
+            {COLLECTIONS.map((c, i) => (
+              <motion.div
+                key={c.name}
+                {...fadeUp}
+                transition={{ delay: i * 0.08, duration: 0.6 }}
+                className={`relative p-8 rounded-2xl border h-full ${
+                  c.featured
+                    ? "bg-white/[0.06] border-amber-500/30"
+                    : "bg-white/[0.03] border-white/[0.06]"
+                }`}
+              >
+                {c.featured && (
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-amber-600 text-white text-[10px] uppercase tracking-[0.2em]">
+                    Most Popular
+                  </div>
+                )}
+                <div className="text-white/40 text-xs uppercase tracking-[0.2em]">{c.name}</div>
+                <div className="text-4xl font-light text-white mt-3">{c.price}</div>
+                <div className="h-px bg-white/10 my-6" />
+                <ul className="space-y-3">
+                  {c.items.map((item) => (
+                    <li key={item} className="flex items-start gap-3">
+                      <Check className="w-4 h-4 text-amber-400/70 shrink-0 mt-1" />
+                      <span className="text-white/70 font-light text-sm leading-relaxed">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
             ))}
           </div>
+
           <p className="text-center text-white/40 text-sm font-light italic mt-12">
-            Collections from €4,000, travel included. Tell me about your day and I'll recommend what fits.
+            Tell me about your day and I'll recommend the collection that fits.
           </p>
+          <div className="text-center mt-8">
+            <CtaButton onClick={openForm}>Check 2027 Availability</CtaButton>
+          </div>
         </div>
       </section>
 
