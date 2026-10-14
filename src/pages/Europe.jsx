@@ -369,7 +369,7 @@ export default function Europe() {
               ))}
             </div>
             <div className="mt-10">
-              <CtaButton onClick={openForm}>Check Your Date</CtaButton>
+              <CtaButton onClick={openForm}>Check 2027 Availability</CtaButton>
             </div>
           </motion.div>
           <motion.div {...fadeUp} className="aspect-[4/5] rounded-3xl overflow-hidden relative">
@@ -579,9 +579,9 @@ export default function Europe() {
             hear about it.
           </p>
           <div className="mt-10">
-            <CtaButton onClick={openForm} className="px-12 py-7 text-lg">Check Your Date</CtaButton>
+            <CtaButton onClick={openForm} className="px-12 py-7 text-lg">Check 2027 Availability</CtaButton>
           </div>
-          <p className="text-amber-400 text-sm mt-6 font-light tracking-wide">Collections from €4,000, travel included</p>
+          <p className="text-amber-400 text-sm mt-6 font-light tracking-wide">Collections from €4,500, travel included</p>
           <p className="text-white/30 text-sm mt-3 tracking-wider">Now booking the 2027 European season</p>
         </motion.div>
       </section>
