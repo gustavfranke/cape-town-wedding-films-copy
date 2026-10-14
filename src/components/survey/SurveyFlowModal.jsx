@@ -31,7 +31,17 @@ function applyTagRules(answers, tagRules) {
   return tags;
 }
 
-export default function SurveyFlowModal({ isOpen, onClose, survey, contactForm, variantId, variantSlug }) {
+export default function SurveyFlowModal({
+  isOpen,
+  onClose,
+  survey,
+  contactForm,
+  variantId,
+  variantSlug,
+  // Per-page reassurance line above the contact fields. Defaults to the
+  // original copy so existing pages are unaffected.
+  responseNote = "We'll reach out within 24 hours.",
+}) {
   const [step, setStep] = useState(0);
   const [surveyAnswers, setSurveyAnswers] = useState({});
   const [formData, setFormData] = useState({});
@@ -148,7 +158,7 @@ export default function SurveyFlowModal({ isOpen, onClose, survey, contactForm, 
     <div className="space-y-4">
       <div>
         <h3 className="text-white text-lg font-light">Almost there, just a few details</h3>
-        <p className="text-white/40 text-sm mt-1">We'll reach out within 24 hours.</p>
+        <p className="text-white/40 text-sm mt-1">{responseNote}</p>
       </div>
       {fields.map(f => {
         const autocompleteMap = { name: "name", email: "email", phone: "tel", wedding_date: "off", venue: "off", message: "off" };
