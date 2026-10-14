@@ -31,12 +31,12 @@ const IMG = {
 const VARIANT = {
   id: VARIANT_ID,
   slug: VARIANT_SLUG,
-  hero_headline: "Wedding Films in Mallorca and Across Europe",
+  hero_headline: "Cinematic Wedding Films in Mallorca and Across Europe",
   hero_subheadline:
-    "I'm based in Europe from May to October. I shoot, direct and edit every European wedding myself.",
+    "Historic fincas, coastal estates, and the day as it actually happened. One filmmaker, start to finish.",
   hero_description:
-    "I stay out of the way on the day. No posing, no directing, so the film gives you back the day as it actually happened.",
-  hero_cta_text: "Check Your Date",
+    "All travel across Europe included in every collection. No hidden fees, no VAT added.",
+  hero_cta_text: "Check 2027 Availability",
   hero_supporting_line: "Now booking the 2027 European season",
   hero_video_url:
     "https://base44.app/api/apps/6a0cca42ae1aca31e6d27baa/files/mp/public/6a0cca42ae1aca31e6d27baa/43673d441_HeroFilmEurope.mp4",
@@ -116,7 +116,7 @@ const FAQS = [
   { q: "How do we secure our date?", a: "A signed agreement and a 50% deposit. Once those are in place, your date is reserved for you." },
 ];
 
-const BUDGET_OPTIONS = ["Under €4,000", "€4,000 to €5,500", "€5,500 to €7,000", "€7,000+"];
+const BUDGET_OPTIONS = ["Under €4,500", "€4,500 to €6,000", "€6,000 to €7,500", "€7,500+"];
 const EUROPE_SURVEY = {
   questions: [
     {
@@ -289,9 +289,10 @@ export default function Europe() {
               The Heart Behind Your Film
             </h2>
             <p className="text-white/50 mt-6 font-light leading-relaxed">
-              I'm Gustav. I've filmed over 100 weddings, from Finca Comasema and Almond Valley in Mallorca to
-              Positano and Lucerne. My background is in documentary and cinema, and I bring that to every
-              wedding: patience, a quiet presence, and an eye for the moments nobody planned.
+              Every couple I film gets the same standard I hold myself to. That means my own eye behind the
+              lens, on every wedding, without exception. I shoot, direct and edit every project myself, so
+              nothing is handed off and nothing is diluted. A film made with care and attention from the
+              first call to the final grade.
             </p>
             <div className="mt-8 flex gap-10">
               {[["100+", "Weddings"], ["7+", "Years"], ["20", "Per Year"]].map(([v, l]) => (
