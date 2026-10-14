@@ -51,6 +51,7 @@ const FILMS = [
   { names: "Jenny & Daniel", venue: "Mallorca", id: "u3pG68OGduE" },
   { names: "Adi & Jana", venue: "Lucerne, Switzerland", id: "1BgGHG3vpy4" },
   { names: "James & Olivia", venue: "Positano, Italy", id: "VSc1CBQYkJY" },
+  { names: "Devon & Nicole", venue: "Kefalonia, Greece", id: "lFQhzBQBfaM" },
 ];
 
 const poster = (id) => `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
@@ -65,6 +66,11 @@ const LEAD_QUOTE = {
 };
 
 const TESTIMONIALS = [
+  {
+    text: "I was in Rome at the time, planning our wedding in Greece and speaking to Gustav in South Africa. After explaining my vision for our wedding film, I felt a sense of understanding as well as genuine passion from Gustav. He truly understood our vision, brought it to life and absolutely nailed the assignment, and delivered sooner than we expected.",
+    names: "Devon & Nicole",
+    venue: "Kefalonia, Greece",
+  },
   {
     text: "Gustav was so keen to understand our story as a couple and how we saw our day unfolding. The way he has told the story of our day is so seamless. From the chaos of our nieces and nephews, to the intimate moments together, the footage he captured will be something we cherish for the rest of our lives.",
     names: "Tegan & Tom",
