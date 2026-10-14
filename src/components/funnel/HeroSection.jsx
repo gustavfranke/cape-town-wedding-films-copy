@@ -3,7 +3,9 @@ import { motion } from "framer-motion";
 import { ChevronDown, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export default function HeroSection({ variant, onCtaClick }) {
+// `highContrast` strengthens the scrim and lifts text opacity for heroes sitting
+// over busy, moving footage. Defaults to false so existing pages are unchanged.
+export default function HeroSection({ variant, onCtaClick, highContrast = false }) {
   const getVideoUrl = () => {
     if (!variant?.hero_video_url) return "";
     
@@ -58,7 +60,16 @@ export default function HeroSection({ variant, onCtaClick }) {
             />
           ) : null
         )}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
+        <div
+          className={
+            highContrast
+              ? "absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/85"
+              : "absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80"
+          }
+        />
+        {highContrast && (
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.6)_0%,rgba(0,0,0,0.3)_45%,transparent_75%)]" />
+        )}
       </div>
 
       {/* Brand Logo */}
@@ -71,7 +82,11 @@ export default function HeroSection({ variant, onCtaClick }) {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
+      <div
+        className={`relative z-10 max-w-4xl mx-auto px-6 text-center ${
+          highContrast ? "[text-shadow:0_2px_16px_rgba(0,0,0,0.55)]" : ""
+        }`}
+      >
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -86,11 +101,11 @@ export default function HeroSection({ variant, onCtaClick }) {
             {variant?.hero_headline || "Your Dream Wedding In Cape Town, Captured Like a Film"}
           </h1>
 
-          <p className="text-lg md:text-xl text-white/70 font-light max-w-2xl mx-auto mb-4 leading-relaxed">
+          <p className={`text-lg md:text-xl font-light max-w-2xl mx-auto mb-4 leading-relaxed ${highContrast ? "text-white/90" : "text-white/70"}`}>
             {variant?.hero_subheadline || "A cinematic wedding experience supported by trusted luxury experts."}
           </p>
 
-          <p className="text-sm md:text-base text-white/50 font-light max-w-xl mx-auto mb-10 leading-relaxed hidden md:block">
+          <p className={`text-sm md:text-base font-light max-w-xl mx-auto mb-10 leading-relaxed hidden md:block ${highContrast ? "text-white/75" : "text-white/50"}`}>
             {variant?.hero_description || ""}
           </p>
 
@@ -102,7 +117,7 @@ export default function HeroSection({ variant, onCtaClick }) {
             >
               {variant?.hero_cta_text || "Access The Luxury Vendor Vault"}
             </Button>
-            <span className="text-white/40 text-sm tracking-wider uppercase">
+            <span className={`text-sm tracking-wider uppercase ${highContrast ? "text-white/70" : "text-white/40"}`}>
               {variant?.hero_supporting_line || "Limited bookings per season."}
             </span>
           </div>
