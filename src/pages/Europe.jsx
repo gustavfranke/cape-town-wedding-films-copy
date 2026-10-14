@@ -33,7 +33,7 @@ const VARIANT = {
   slug: VARIANT_SLUG,
   hero_headline: "Cinematic Wedding Films in Mallorca and Across Europe",
   hero_subheadline:
-    "Historic fincas, coastal estates, and the day as it actually happened. One filmmaker, start to finish.",
+    "Historic fincas, coastal estates, and the day as it actually happened. I lead every shoot and cut every film myself.",
   hero_description:
     "Travel and accommodation across Europe included in every collection. No hidden fees, no VAT added.",
   hero_cta_text: "Check 2027 Availability",
@@ -92,7 +92,7 @@ const TESTIMONIALS = [
 const APPROACH = [
   "Based in Europe from May to October, not flying in for a single booking",
   "Travel and accommodation across Europe included in every collection",
-  "I shoot, direct and edit every European wedding myself",
+  "I lead every shoot and edit every film myself",
   "Unobtrusive on the day. Rarely posed, never staged",
   "Natural colour, true to how your day actually looked",
   "Music chosen to carry your story, not follow a trend",
@@ -148,7 +148,7 @@ const PROCESS = [
 
 const FAQS = [
   { q: "Where in Europe do you film?", a: "I travel across Europe for destination weddings, with a strong focus on Mallorca, Italy, Greece, Switzerland and France. Because I handle international logistics regularly, all travel and accommodation expenses are completely built into your collection price, meaning zero hidden fees or surprise invoices for you." },
-  { q: "Who actually films our wedding?", a: "I do. For European weddings I shoot, direct and edit every film myself. Nothing is handed to a second shooter or an outside editor." },
+  { q: "Who actually films our wedding?", a: "I do. I'm lead camera at every European wedding, so the person you book is the person who shows up on your day. On Collections II and III a second cinematographer works alongside me for extra angles, briefed and directed by me throughout. Every film is made under my direction, from the first call to the final grade." },
   { q: "We haven't met you. How does that work?", a: "We set up a video call before you book to connect and chat through your vision, followed by a detailed planning call closer to the day. Most of my destination couples book me via video call, feeling completely at ease knowing their film is in dedicated hands." },
   { q: "When will we receive our film?", a: "Within 8 to 12 weeks, depending on your collection. Express delivery in under two weeks is available as an add-on." },
   { q: "How do we secure our date?", a: "A signed agreement and a 50% deposit. Once those are in place, your date is reserved for you." },
