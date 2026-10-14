@@ -35,7 +35,7 @@ const VARIANT = {
   hero_subheadline:
     "Historic fincas, coastal estates, and the day as it actually happened. One filmmaker, start to finish.",
   hero_description:
-    "All travel across Europe included in every collection. No hidden fees, no VAT added.",
+    "Travel and accommodation across Europe included in every collection. No hidden fees, no VAT added.",
   hero_cta_text: "Check 2027 Availability",
   hero_supporting_line: "Now booking the 2027 European season",
   hero_video_url:
@@ -91,6 +91,7 @@ const TESTIMONIALS = [
 // --- Copy -------------------------------------------------------------------
 const APPROACH = [
   "Based in Europe from May to October, not flying in for a single booking",
+  "Travel and accommodation across Europe included in every collection",
   "I shoot, direct and edit every European wedding myself",
   "Unobtrusive on the day. Rarely posed, never staged",
   "Natural colour, true to how your day actually looked",
@@ -485,7 +486,8 @@ export default function Europe() {
               Every price is final
             </h2>
             <p className="text-white/50 text-lg mt-6 max-w-2xl mx-auto font-light leading-relaxed">
-              Travel across Europe is fully included. No VAT added, nothing invoiced afterwards.
+              Travel and accommodation across Europe are fully included. No VAT added, nothing invoiced
+              afterwards.
             </p>
           </motion.div>
 
@@ -586,7 +588,7 @@ export default function Europe() {
           <div className="mt-10">
             <CtaButton onClick={openForm} className="px-12 py-7 text-lg">Check 2027 Availability</CtaButton>
           </div>
-          <p className="text-amber-400 text-sm mt-6 font-light tracking-wide">Collections from €4,500, travel included</p>
+          <p className="text-amber-400 text-sm mt-6 font-light tracking-wide">Collections from €4,500, travel and accommodation included</p>
           <p className="text-white/30 text-sm mt-3 tracking-wider">Now booking the 2027 European season</p>
         </motion.div>
       </section>
