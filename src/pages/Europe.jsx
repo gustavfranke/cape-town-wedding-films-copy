@@ -301,7 +301,7 @@ export default function Europe() {
 
   return (
     <div className="bg-stone-950 min-h-screen">
-      <HeroSection variant={VARIANT} onCtaClick={openForm} />
+      <HeroSection variant={VARIANT} onCtaClick={openForm} highContrast />
 
       {/* Lead testimonial, kept high on the page */}
       <section className="relative bg-stone-900 py-20 md:py-28 overflow-hidden">
