@@ -101,7 +101,14 @@ export default function SurveyFlowModal({
           progress_step: questions.length,
         });
       }
-      if (typeof window.fbq === 'function') window.fbq('track', 'Lead');
+      if (typeof window.fbq === 'function') {
+        // Pass the variant (and budget band, when the survey captured one) so
+        // campaigns can be optimised against a custom conversion rather than a
+        // single pooled Lead event shared across every landing page.
+        const params = { content_name: variantSlug || "offer-1" };
+        if (surveyAnswers?.budget) params.content_category = surveyAnswers.budget;
+        window.fbq('track', 'Lead', params);
+      }
       setDone(true);
     } catch (e) {
       setError(e?.message || "Something went wrong. Please try again.");
