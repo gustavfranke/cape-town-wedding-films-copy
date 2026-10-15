@@ -41,6 +41,9 @@ export default function SurveyFlowModal({
   // Per-page reassurance line above the contact fields. Defaults to the
   // original copy so existing pages are unaffected.
   responseNote = "We'll reach out within 24 hours.",
+  // Optional personal video on the confirmation screen. When set, it replaces
+  // the default reaction-video block. { url, intro, poster }
+  confirmationVideo = null,
 }) {
   const [step, setStep] = useState(0);
   const [surveyAnswers, setSurveyAnswers] = useState({});
@@ -205,20 +208,36 @@ export default function SurveyFlowModal({
       </div>
       <h3 className="text-white text-2xl font-light">{confirmHeadline}</h3>
       <p className="text-white/50 leading-relaxed">{confirmText}</p>
-      {reactionVideo?.file_url && (
+      {confirmationVideo?.url ? (
         <div className="mt-4">
-          <p className="text-white/50 text-sm font-light leading-relaxed mb-3">
-            While you wait, here's a couple watching their wedding film for the first time. This is the moment I make these for.
-          </p>
+          {confirmationVideo.intro && (
+            <p className="text-white/60 text-sm font-light leading-relaxed mb-3">{confirmationVideo.intro}</p>
+          )}
           <video
-            src={`${reactionVideo.file_url}#t=34`}
-            autoPlay
-            muted
+            src={confirmationVideo.url}
+            poster={confirmationVideo.poster || undefined}
             controls
-            onLoadedMetadata={(e) => { e.target.currentTime = 34; }}
+            playsInline
+            preload="metadata"
             className="w-full rounded-xl border border-white/10"
           />
         </div>
+      ) : (
+        reactionVideo?.file_url && (
+          <div className="mt-4">
+            <p className="text-white/50 text-sm font-light leading-relaxed mb-3">
+              While you wait, here's a couple watching their wedding film for the first time. This is the moment I make these for.
+            </p>
+            <video
+              src={`${reactionVideo.file_url}#t=34`}
+              autoPlay
+              muted
+              controls
+              onLoadedMetadata={(e) => { e.target.currentTime = 34; }}
+              className="w-full rounded-xl border border-white/10"
+            />
+          </div>
+        )
       )}
       {confirmBtnText && confirmBtnUrl && (
         <a href={confirmBtnUrl} target="_blank" rel="noreferrer">
