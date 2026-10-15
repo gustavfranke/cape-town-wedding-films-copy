@@ -95,7 +95,7 @@ const TESTIMONIALS = [
 
 // --- Copy -------------------------------------------------------------------
 const APPROACH = [
-  "Based in Europe from May to October, not flying in for a single booking",
+  "A small number of European weddings each season, planned carefully",
   "Travel and accommodation across Europe included in every collection",
   "I lead every shoot and edit every film myself",
   "Unobtrusive on the day. Rarely posed, never staged",
