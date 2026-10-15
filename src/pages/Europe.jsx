@@ -14,7 +14,12 @@ import SurveyFlowModal from "@/components/survey/SurveyFlowModal";
 
 const VARIANT_ID = "6ace692cfa2ebd9a5586953a";
 const VARIANT_SLUG = "europe";
-const CALENDLY_URL = "https://calendly.com/gustavfrankecinematography";
+// Personal piece-to-camera shown on the confirmation screen once an inquiry is
+// submitted. Upload to the media library and paste the file URL here. While it
+// is empty the modal falls back to the reaction video.
+const WELCOME_VIDEO_URL = "";
+const WELCOME_VIDEO_INTRO =
+  "A quick hello from me, and what happens next.";
 
 // --- Images -----------------------------------------------------------------
 const FILES = "https://base44.app/api/apps/6a0cca42ae1aca31e6d27baa/files/mp/public/6a0cca42ae1aca31e6d27baa/";
@@ -173,9 +178,7 @@ const EUROPE_SURVEY = {
   })),
   confirmation_headline: "Thank you, I'll be in touch soon",
   confirmation_text:
-    "I'll check my calendar for your date and reply within 24 hours. If you'd like to talk sooner, book a call below.",
-  confirmation_button_text: "Book a Call",
-  confirmation_button_url: CALENDLY_URL,
+    "I'll check my calendar for your date and reply personally within 24 hours.",
 };
 
 const fadeUp = {
@@ -609,6 +612,11 @@ export default function Europe() {
             variantId={VARIANT_ID}
             variantSlug={VARIANT_SLUG}
             responseNote="I personally review every inquiry and will be in touch within 24 hours."
+            confirmationVideo={
+              WELCOME_VIDEO_URL
+                ? { url: WELCOME_VIDEO_URL, intro: WELCOME_VIDEO_INTRO }
+                : null
+            }
           />
         )}
       </AnimatePresence>
