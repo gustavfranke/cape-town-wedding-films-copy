@@ -264,7 +264,7 @@ function Quote({ text, names, venue, className = "" }) {
   );
 }
 
-export default function Europe() {
+export default function Mallorca() {
   const [modalOpen, setModalOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
   const [activeFilm, setActiveFilm] = useState(null);
