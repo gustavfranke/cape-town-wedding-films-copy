@@ -30,6 +30,7 @@ const IMG = {
   break: `${FILES}684dac4e8_confettilivandsebs_153_171.jpg`, // confetti exit
   testimonials: `${FILES}3db3c0e57_AdiJanaLucerneWedding.png`, // Adi & Jana, Lucerne
   filmmaker: `${FILES}f5ee1ea96_03a-heart-behind-film.jpg`,
+  process: `${FILES}4277f51bb_sebslivcoupleshoot.jpg`, // Liv & Sebs, olive grove
   finalCta: `${FILES}45f87306d_WideshotofLivSebs.png`, // long table, Finca Comasema
 };
 
@@ -536,18 +537,31 @@ export default function Europe() {
       </section>
 
       {/* Process */}
-      <section className="bg-stone-950 py-20 md:py-28">
-        <div className="max-w-5xl mx-auto px-6">
+      <section className="relative bg-stone-950 py-20 md:py-28 overflow-hidden">
+        <div className="absolute inset-0">
+          <img
+            src={IMG.process}
+            alt=""
+            className="w-full h-full object-cover opacity-30"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-stone-950 via-stone-950/75 to-stone-900" />
+        </div>
+        <div className="relative max-w-5xl mx-auto px-6">
           <motion.div {...fadeUp} className="text-center mb-14">
             <Eyebrow>How To Book Me</Eyebrow>
             <h2 className="text-3xl md:text-4xl font-light text-white mt-4">Securing Your Date</h2>
           </motion.div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {PROCESS.map((p) => (
-              <motion.div key={p.step} {...fadeUp} className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.06]">
-                <div className="text-amber-500/60 text-sm tracking-widest">{p.step}</div>
+              <motion.div
+                key={p.step}
+                {...fadeUp}
+                className="p-6 rounded-2xl bg-stone-950/70 backdrop-blur-sm border border-white/[0.08]"
+              >
+                <div className="text-amber-500/70 text-sm tracking-widest">{p.step}</div>
                 <div className="text-white font-light mt-3">{p.title}</div>
-                <p className="text-white/45 text-sm font-light leading-relaxed mt-2">{p.description}</p>
+                <p className="text-white/55 text-sm font-light leading-relaxed mt-2">{p.description}</p>
               </motion.div>
             ))}
           </div>
@@ -580,7 +594,8 @@ export default function Europe() {
       {/* Final CTA */}
       <section className="relative bg-stone-950 py-24 md:py-36 overflow-hidden">
         <div className="absolute inset-0">
-          <img src={IMG.finalCta} alt="" className="w-full h-full object-cover opacity-10" loading="lazy" />
+          <img src={IMG.finalCta} alt="" className="w-full h-full object-cover opacity-30" loading="lazy" />
+          <div className="absolute inset-0 bg-gradient-to-b from-stone-950/70 via-stone-950/60 to-stone-950/80" />
         </div>
         <motion.div {...fadeUp} className="relative max-w-3xl mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-5xl font-light text-white leading-tight">Let's Talk About Your Day</h2>
