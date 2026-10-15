@@ -63,12 +63,12 @@ export default function HeroSection({ variant, onCtaClick, highContrast = false 
         <div
           className={
             highContrast
-              ? "absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/85"
+              ? "absolute inset-0 bg-gradient-to-b from-black/50 via-black/35 to-black/70"
               : "absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80"
           }
         />
         {highContrast && (
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.6)_0%,rgba(0,0,0,0.3)_45%,transparent_75%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.38)_0%,rgba(0,0,0,0.16)_45%,transparent_72%)]" />
         )}
       </div>
 
@@ -84,7 +84,7 @@ export default function HeroSection({ variant, onCtaClick, highContrast = false 
       {/* Content */}
       <div
         className={`relative z-10 max-w-4xl mx-auto px-6 text-center ${
-          highContrast ? "[text-shadow:0_2px_16px_rgba(0,0,0,0.55)]" : ""
+          highContrast ? "[text-shadow:0_2px_14px_rgba(0,0,0,0.75)]" : ""
         }`}
       >
         <motion.div
