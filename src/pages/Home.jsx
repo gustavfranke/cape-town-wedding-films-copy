@@ -83,21 +83,41 @@ export default function Home() {
   useEffect(() => {
     if (variants.length === 0) return;
 
-    // Check if split testing is disabled
-    if (!settings?.split_test_enabled) {
-      window.location.href = createPageUrl("FunnelVariantA");
+    // Preserve the ?v= query param through the redirect so FunnelVariantA
+    // can load the correct PageVariant and read its sections_enabled.
+    const urlParams = new URLSearchParams(window.location.search);
+    const vParam = urlParams.get("v") || urlParams.get("variant");
+    const qs = vParam ? `?v=${encodeURIComponent(vParam)}` : "";
+
+    // If an explicit offer is requested via ?v=, always honour it and skip A/B logic.
+    if (vParam) {
+      // Route cape-town-local and europe to their dedicated pages, everything else
+      // (offer-1, offer-2, ...) goes to FunnelVariantA which reads ?v=.
+      if (vParam === "cape-town-local") {
+        window.location.href = createPageUrl("CapeTown") + qs;
+      } else if (vParam === "europe") {
+        window.location.href = createPageUrl("Mallorca") + qs;
+      } else if (vParam === "variant-b") {
+        window.location.href = createPageUrl("FunnelVariantB") + qs;
+      } else {
+        window.location.href = createPageUrl("FunnelVariantA") + qs;
+      }
       return;
     }
 
-    // Get or assign variant
+    // No ?v= param: fall back to split-test / default behaviour.
+    if (!settings?.split_test_enabled) {
+      window.location.href = createPageUrl("FunnelVariantA") + qs;
+      return;
+    }
+
     const variant = getOrAssignVariant(variants);
     if (!variant) return;
 
-    // Redirect to the appropriate variant page
     if (variant.slug === "variant-b") {
-      window.location.href = createPageUrl("FunnelVariantB");
+      window.location.href = createPageUrl("FunnelVariantB") + qs;
     } else {
-      window.location.href = createPageUrl("FunnelVariantA");
+      window.location.href = createPageUrl("FunnelVariantA") + `?v=${encodeURIComponent(variant.slug)}`;
     }
   }, [variants, settings]);
 
