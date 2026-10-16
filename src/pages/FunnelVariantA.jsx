@@ -48,6 +48,7 @@ const DEFAULT_VARIANT = {
   authority_description: "With over 200 weddings filmed across Cape Town and the Winelands.",
   final_cta_headline: "Ready to Capture Your Day?",
   final_cta_description: "Spots fill fast. Check your date is available before it's gone.",
+  sections_enabled: [],
 };
 
 export default function FunnelVariantA() {
@@ -56,10 +57,9 @@ export default function FunnelVariantA() {
 
   const slugParam = new URLSearchParams(window.location.search).get("v") || "offer-1";
 
-  const { data: variants } = useQuery({
+  const { data: variants, isLoading: variantLoading } = useQuery({
     queryKey: ["pageVariants", slugParam],
     queryFn: () => base44.entities.PageVariant.filter({ slug: slugParam }),
-    initialData: [],
   });
 
   const { data: testimonials } = useQuery({ queryKey: ["testimonials"], queryFn: () => base44.entities.Testimonial.list(), initialData: [] });
@@ -67,7 +67,9 @@ export default function FunnelVariantA() {
   const { data: categories } = useQuery({ queryKey: ["vendorCategories"], queryFn: () => base44.entities.VendorCategory.list(), initialData: [] });
   const { data: settingsArr } = useQuery({ queryKey: ["siteSettings"], queryFn: () => base44.entities.SiteSettings.list(), initialData: [] });
 
-  const variant = variants[0] || DEFAULT_VARIANT;
+  // Normalize filter result: SDK may return an array or a page object {items, ...}
+  const variantList = Array.isArray(variants) ? variants : variants?.items || [];
+  const variant = variantList[0] || DEFAULT_VARIANT;
   const settings = settingsArr?.[0];
 
   // Load Survey if configured
@@ -86,7 +88,8 @@ export default function FunnelVariantA() {
       : base44.entities.ContactForm.filter({ is_default: true }),
     initialData: [],
   });
-  const contactForm = contactFormArr?.[0] || null;
+  const contactFormList = Array.isArray(contactFormArr) ? contactFormArr : contactFormArr?.items || [];
+  const contactForm = contactFormList[0] || null;
 
   const sectionsEnabled = variant?.sections_enabled;
   const isSectionEnabled = (name) =>
@@ -116,6 +119,14 @@ export default function FunnelVariantA() {
 
   const showModal = !scrollToFormMode && variant.lead_capture_type !== "none" && (survey || contactForm);
   const activeSurvey = variant.lead_capture_type === "survey" ? survey : null;
+
+  if (variantLoading) {
+    return (
+      <div className="min-h-screen bg-stone-950 flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="bg-stone-950 min-h-screen" style={{ scrollBehavior: "smooth" }}>
