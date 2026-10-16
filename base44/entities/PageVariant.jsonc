@@ -44,6 +44,13 @@
       "type": "string",
       "default": "Request Availability"
     },
+    "hero_cta_action": {
+      "type": "string",
+      "enum": [
+        "scroll_to_form",
+        "open_modal"
+      ]
+    },
     "hero_supporting_line": {
       "type": "string"
     },
@@ -118,6 +125,13 @@
       "items": {
         "type": "string"
       }
+    },
+    "sections_enabled": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Which sections to render. If empty or missing, all sections render."
     }
   },
   "required": [

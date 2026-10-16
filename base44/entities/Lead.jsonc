@@ -31,6 +31,14 @@
       "type": "string",
       "description": "Additional message"
     },
+    "referral_source": {
+      "type": "string",
+      "description": "How the lead heard about us"
+    },
+    "planner_name": {
+      "type": "string",
+      "description": "Wedding planner or coordinator name"
+    },
     "status": {
       "type": "string",
       "enum": [

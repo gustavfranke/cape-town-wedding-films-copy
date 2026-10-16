@@ -19,6 +19,9 @@ import AuthoritySection from "@/components/funnel/AuthoritySection";
 import FAQSection from "@/components/funnel/FAQSection";
 import FinalCTASection from "@/components/funnel/FinalCTASection";
 import StickyMobileCTA from "@/components/funnel/StickyMobileCTA";
+import ValuePillars from "@/components/funnel/ValuePillars";
+import PricingAnchor from "@/components/funnel/PricingAnchor";
+import InquirySection from "@/components/funnel/InquirySection";
 import EditableSection from "@/components/funnel/EditableSection";
 import SectionEditModal from "@/components/funnel/SectionEditModal";
 import SurveyFlowModal from "@/components/survey/SurveyFlowModal";
@@ -85,6 +88,12 @@ export default function FunnelVariantA() {
   });
   const contactForm = contactFormArr?.[0] || null;
 
+  const sectionsEnabled = variant?.sections_enabled;
+  const isSectionEnabled = (name) =>
+    !sectionsEnabled || sectionsEnabled.length === 0 || sectionsEnabled.includes(name);
+  const scrollToFormMode =
+    variant?.hero_cta_action === "scroll_to_form" || (sectionsEnabled?.includes("form") ?? false);
+
   const trackEvent = useCallback((type) => {
     base44.entities.AnalyticsEvent.create({
       event_type: type,
@@ -96,49 +105,80 @@ export default function FunnelVariantA() {
   const handleCtaClick = useCallback(() => {
     if (variant.lead_capture_type === "none") return;
     trackEvent("cta_click");
+    if (scrollToFormMode) {
+      document.getElementById("inquire")?.scrollIntoView({ behavior: "smooth" });
+      return;
+    }
     setModalOpen(true);
-  }, [variant.lead_capture_type, trackEvent]);
+  }, [variant.lead_capture_type, trackEvent, scrollToFormMode]);
 
   useEffect(() => { trackEvent("page_view"); }, []);
 
-  const showModal = variant.lead_capture_type !== "none" && (survey || contactForm);
+  const showModal = !scrollToFormMode && variant.lead_capture_type !== "none" && (survey || contactForm);
   const activeSurvey = variant.lead_capture_type === "survey" ? survey : null;
 
   return (
-    <div className="bg-stone-950 min-h-screen">
-      <EditableSection sectionId="hero" onEdit={() => setEditModal({ open: true, section: "hero" })}>
-        <HeroSection variant={variant} onCtaClick={handleCtaClick} />
-      </EditableSection>
-      <CredibilityStrip />
-      <EditableSection sectionId="problem" onEdit={() => setEditModal({ open: true, section: "problem" })}>
-        <ProblemSection variant={variant} />
-      </EditableSection>
-      <EditableSection sectionId="solution" onEdit={() => setEditModal({ open: true, section: "solution" })}>
-        <SolutionSection variant={variant} />
-      </EditableSection>
-      <TestimonialsCarousel />
-      <EditableSection sectionId="vault" onEdit={() => setEditModal({ open: true, section: "vault" })}>
-        <VaultRevealSection variant={variant} onCtaClick={handleCtaClick} />
-      </EditableSection>
-      <BenefitCards />
-      <SocialProofSection testimonials={testimonials} />
-      <ObjectionSection />
-      <ProcessTimeline variant={variant} />
-      <EditableSection sectionId="authority" onEdit={() => setEditModal({ open: true, section: "authority" })}>
-        <AuthoritySection variant={variant} />
-      </EditableSection>
-      <FAQSection faqs={faqs} />
-      <EditableSection sectionId="offer" onEdit={() => setEditModal({ open: true, section: "offer" })}>
-        <OfferSection variant={variant} />
-      </EditableSection>
-      <EditableSection sectionId="final_cta" onEdit={() => setEditModal({ open: true, section: "final_cta" })}>
-        <FinalCTASection variant={variant} onCtaClick={handleCtaClick} />
-      </EditableSection>
-      <div className="bg-stone-950 pt-16 text-center">
-        <span className="text-amber-500/60 text-xs uppercase tracking-[0.3em] font-medium">A Bonus for You</span>
-      </div>
-      <VaultPreviewGrid categories={categories} onCtaClick={handleCtaClick} />
-      <StickyMobileCTA variant={variant} onCtaClick={handleCtaClick} />
+    <div className="bg-stone-950 min-h-screen" style={{ scrollBehavior: "smooth" }}>
+      {isSectionEnabled("hero") && (
+        <EditableSection sectionId="hero" onEdit={() => setEditModal({ open: true, section: "hero" })}>
+          <HeroSection variant={variant} onCtaClick={handleCtaClick} />
+        </EditableSection>
+      )}
+      {isSectionEnabled("pillars") && <ValuePillars />}
+      {isSectionEnabled("pricing_anchor") && <PricingAnchor />}
+      {isSectionEnabled("form") && (
+        <InquirySection
+          contactForm={contactForm}
+          variantSlug={variant?.slug || slugParam}
+          variantId={variant?.id}
+        />
+      )}
+      {isSectionEnabled("credibility") && <CredibilityStrip />}
+      {isSectionEnabled("problem") && (
+        <EditableSection sectionId="problem" onEdit={() => setEditModal({ open: true, section: "problem" })}>
+          <ProblemSection variant={variant} />
+        </EditableSection>
+      )}
+      {isSectionEnabled("solution") && (
+        <EditableSection sectionId="solution" onEdit={() => setEditModal({ open: true, section: "solution" })}>
+          <SolutionSection variant={variant} />
+        </EditableSection>
+      )}
+      {isSectionEnabled("testimonials_carousel") && <TestimonialsCarousel />}
+      {isSectionEnabled("vault") && (
+        <EditableSection sectionId="vault" onEdit={() => setEditModal({ open: true, section: "vault" })}>
+          <VaultRevealSection variant={variant} onCtaClick={handleCtaClick} />
+        </EditableSection>
+      )}
+      {isSectionEnabled("benefits") && <BenefitCards />}
+      {isSectionEnabled("social_proof") && <SocialProofSection testimonials={testimonials} />}
+      {isSectionEnabled("objections") && <ObjectionSection />}
+      {isSectionEnabled("process") && <ProcessTimeline variant={variant} />}
+      {isSectionEnabled("authority") && (
+        <EditableSection sectionId="authority" onEdit={() => setEditModal({ open: true, section: "authority" })}>
+          <AuthoritySection variant={variant} />
+        </EditableSection>
+      )}
+      {isSectionEnabled("faqs") && <FAQSection faqs={faqs} />}
+      {isSectionEnabled("offer") && (
+        <EditableSection sectionId="offer" onEdit={() => setEditModal({ open: true, section: "offer" })}>
+          <OfferSection variant={variant} />
+        </EditableSection>
+      )}
+      {isSectionEnabled("final_cta") && (
+        <EditableSection sectionId="final_cta" onEdit={() => setEditModal({ open: true, section: "final_cta" })}>
+          <FinalCTASection variant={variant} onCtaClick={handleCtaClick} />
+        </EditableSection>
+      )}
+      {isSectionEnabled("vault_preview") && (
+        <>
+          <div className="bg-stone-950 pt-16 text-center">
+            <span className="text-amber-500/60 text-xs uppercase tracking-[0.3em] font-medium">A Bonus for You</span>
+          </div>
+          <VaultPreviewGrid categories={categories} onCtaClick={handleCtaClick} />
+        </>
+      )}
+      {isSectionEnabled("sticky_cta") && <StickyMobileCTA variant={variant} onCtaClick={handleCtaClick} />}
 
       <AnimatePresence>
         {modalOpen && showModal && (
